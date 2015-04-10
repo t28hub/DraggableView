@@ -114,8 +114,8 @@ public class DraggableListView extends RecyclerView {
 
     private boolean onTouchDown(MotionEvent event) {
         mDragPointerId = event.getPointerId(INITIAL_POINTER_INDEX);
-        mTouchDownPoint.x = (int) event.getX();
-        mTouchDownPoint.y = (int) event.getY();
+        mTouchDownPoint.x = (int) event.getX(mDragPointerId);
+        mTouchDownPoint.y = (int) event.getY(mDragPointerId);
         return false;
     }
 
