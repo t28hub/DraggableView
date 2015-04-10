@@ -51,6 +51,19 @@ public class DraggableListView extends RecyclerView {
         return super.onTouchEvent(event);
     }
 
+    @Override
+    public void setAdapter(RecyclerView.Adapter adapter) {
+        if (!(adapter instanceof Adapter)) {
+            throw new IllegalArgumentException(String.format("'adapter' must be an instance of %s", Adapter.class.getCanonicalName()));
+        }
+        super.setAdapter(adapter);
+    }
+
+    @Override
+    public Adapter getAdapter() {
+        return (Adapter) super.getAdapter();
+    }
+
     public boolean isDragging() {
         return mDraggingView != null;
     }
@@ -110,5 +123,9 @@ public class DraggableListView extends RecyclerView {
 
     private boolean onTouchPointerUp(MotionEvent event) {
         return onTouchUp(event);
+    }
+
+    public static abstract class Adapter<VH extends ViewHolder> extends RecyclerView.Adapter<VH> {
+        public abstract long getItemId(int position);
     }
 }
