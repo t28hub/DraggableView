@@ -23,6 +23,7 @@ public class DraggableListView extends RecyclerView {
     private int mDragPointerId = MotionEvent.INVALID_POINTER_ID;
     private long mDraggingItemId = NO_ID;
     private View mDraggingView;
+    private ShadowBuilder mShadowBuilder;
 
     public DraggableListView(Context context) {
         this(context, null, NO_DEF_STYLE);
@@ -59,6 +60,14 @@ public class DraggableListView extends RecyclerView {
     }
 
     @Override
+    protected void dispatchDraw(@NonNull Canvas canvas) {
+        super.dispatchDraw(canvas);
+        if (mShadowBuilder != null) {
+            mShadowBuilder.onDraw(canvas);
+        }
+    }
+
+    @Override
     public void setAdapter(RecyclerView.Adapter adapter) {
         if (!(adapter instanceof Adapter)) {
             final String message = String.format("'adapter' must be an instance of %s", Adapter.class.getCanonicalName());
@@ -76,7 +85,11 @@ public class DraggableListView extends RecyclerView {
         return mDraggingView != null;
     }
 
-    public void startDrag(View view) {
+    public void startDrag(View view, ShadowBuilder shadowBuilder) {
+        if (shadowBuilder == null) {
+            throw new NullPointerException("'shadowBuilder == null'");
+        }
+
         final ViewHolder viewHolder = getChildViewHolder(view);
         if (viewHolder == null) {
             final String message = String.format("View(%s) is not found in %s", view, this);
@@ -90,6 +103,8 @@ public class DraggableListView extends RecyclerView {
 
         mDraggingItemId = viewHolder.getItemId();
         mDraggingView = view;
+        mShadowBuilder = shadowBuilder;
+        invalidate();
     }
 
     private boolean handleTouchEvent(MotionEvent event) {
