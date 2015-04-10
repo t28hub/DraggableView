@@ -135,6 +135,12 @@ public class DraggableListView extends RecyclerView {
     }
 
     private boolean onTouchUp(MotionEvent event) {
+        if (!isDragging()) {
+            return false;
+        }
+
+        mTouchMovePoint.x = (int) event.getX(mDragPointerId);
+        mTouchMovePoint.y = (int) event.getY(mDragPointerId);
         return false;
     }
 
@@ -154,6 +160,12 @@ public class DraggableListView extends RecyclerView {
     }
 
     private boolean onTouchCancel(MotionEvent event) {
+        if (!isDragging()) {
+            return false;
+        }
+
+        mTouchMovePoint.x = (int) event.getX(mDragPointerId);
+        mTouchMovePoint.y = (int) event.getY(mDragPointerId);
         return false;
     }
 
