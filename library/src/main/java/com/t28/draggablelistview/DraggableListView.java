@@ -5,6 +5,7 @@ import android.graphics.PointF;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 
 public class DraggableListView extends RecyclerView {
     private static final int NO_DEF_STYLE = 0;
@@ -14,6 +15,7 @@ public class DraggableListView extends RecyclerView {
     private final PointF mTouchMovePoint;
 
     private int mDragPointerId = MotionEvent.INVALID_POINTER_ID;
+    private View mDraggingView;
 
     public DraggableListView(Context context) {
         this(context, null, NO_DEF_STYLE);
@@ -47,6 +49,22 @@ public class DraggableListView extends RecyclerView {
             return false;
         }
         return super.onTouchEvent(event);
+    }
+
+    public boolean isDragging() {
+        return mDraggingView != null;
+    }
+
+    public void startDrag(View view) {
+        final int index = indexOfChild(view);
+        if (index < 0) {
+            throw new IllegalArgumentException(String.format("View(%s) is not found in %s", view, this));
+        }
+
+        if (isDragging()) {
+            throw new IllegalStateException(String.format("Another view(%s) is dragging", mDraggingView));
+        }
+        mDraggingView = view;
     }
 
     private boolean handleTouchEvent(MotionEvent event) {
