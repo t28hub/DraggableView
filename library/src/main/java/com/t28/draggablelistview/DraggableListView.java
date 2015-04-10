@@ -3,7 +3,8 @@ package com.t28.draggablelistview;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.PointF;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -16,8 +17,8 @@ public class DraggableListView extends RecyclerView {
     private static final int NO_DEF_STYLE = 0;
     private static final int INITIAL_POINTER_INDEX = 0;
 
-    private final PointF mTouchDownPoint;
-    private final PointF mTouchMovePoint;
+    private final Point mTouchDownPoint;
+    private final Point mTouchMovePoint;
 
     private int mDragPointerId = MotionEvent.INVALID_POINTER_ID;
     private long mDraggingItemId = NO_ID;
@@ -34,8 +35,8 @@ public class DraggableListView extends RecyclerView {
     public DraggableListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        mTouchDownPoint = new PointF();
-        mTouchMovePoint = new PointF();
+        mTouchDownPoint = new Point();
+        mTouchMovePoint = new Point();
         mDragPointerId = MotionEvent.INVALID_POINTER_ID;
     }
 
@@ -113,8 +114,8 @@ public class DraggableListView extends RecyclerView {
 
     private boolean onTouchDown(MotionEvent event) {
         mDragPointerId = event.getPointerId(INITIAL_POINTER_INDEX);
-        mTouchDownPoint.x = event.getX();
-        mTouchDownPoint.y = event.getY();
+        mTouchDownPoint.x = (int) event.getX();
+        mTouchDownPoint.y = (int) event.getY();
         return false;
     }
 
@@ -123,8 +124,8 @@ public class DraggableListView extends RecyclerView {
     }
 
     private boolean onTouchMove(MotionEvent event) {
-        mTouchMovePoint.x = event.getX(mDragPointerId);
-        mTouchMovePoint.y = event.getY(mDragPointerId);
+        mTouchMovePoint.x = (int) event.getX(mDragPointerId);
+        mTouchMovePoint.y = (int) event.getY(mDragPointerId);
         return false;
     }
 
@@ -157,6 +158,24 @@ public class DraggableListView extends RecyclerView {
             final Canvas canvas = new Canvas(bitmap);
             view.draw(canvas);
             return new BitmapDrawable(view.getResources(), bitmap.copy(config, false));
+        }
+
+        protected Drawable getShadow() {
+            return mShadow;
+        }
+
+        protected void onDraw(@NonNull Canvas canvas) {
+            mShadow.draw(canvas);
+        }
+
+        protected void onMove(@NonNull Point newPoint) {
+            final Rect oldBounds = mShadow.getBounds();
+            final Rect newBounds = new Rect();
+            newBounds.left = newPoint.x;
+            newBounds.top = newPoint.y;
+            newBounds.right = newPoint.x + oldBounds.width();
+            newBounds.bottom = newPoint.y + oldBounds.height();
+            mShadow.setBounds(newBounds);
         }
     }
 }
