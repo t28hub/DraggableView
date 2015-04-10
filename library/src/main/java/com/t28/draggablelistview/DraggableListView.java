@@ -145,8 +145,10 @@ public class DraggableListView extends RecyclerView {
 
         mTouchMovePoint.x = (int) event.getX(mDragPointerId);
         mTouchMovePoint.y = (int) event.getY(mDragPointerId);
-        mShadowBuilder.onMove(new Point(mTouchMovePoint));
-        invalidate();
+
+        if (mShadowBuilder.onMove(new Point(mTouchMovePoint))) {
+            invalidate();
+        }
 
         return false;
     }
@@ -190,7 +192,7 @@ public class DraggableListView extends RecyclerView {
             mShadow.draw(canvas);
         }
 
-        protected void onMove(@NonNull Point newPoint) {
+        protected boolean onMove(@NonNull Point newPoint) {
             final Rect oldBounds = mShadow.getBounds();
             final Rect newBounds = new Rect();
             newBounds.left = newPoint.x;
@@ -198,6 +200,7 @@ public class DraggableListView extends RecyclerView {
             newBounds.right = newPoint.x + oldBounds.width();
             newBounds.bottom = newPoint.y + oldBounds.height();
             mShadow.setBounds(newBounds);
+            return !newBounds.equals(oldBounds);
         }
     }
 }
