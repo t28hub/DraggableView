@@ -150,7 +150,7 @@ public class DraggableListView extends RecyclerView {
             invalidate();
         }
 
-        return false;
+        return true;
     }
 
     private boolean onTouchCancel(MotionEvent event) {
