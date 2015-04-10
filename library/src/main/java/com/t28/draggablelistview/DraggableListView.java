@@ -1,7 +1,12 @@
 package com.t28.draggablelistview;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.PointF;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -133,5 +138,24 @@ public class DraggableListView extends RecyclerView {
 
     public static abstract class Adapter<VH extends ViewHolder> extends RecyclerView.Adapter<VH> {
         public abstract long getItemId(int position);
+    }
+
+    public static abstract class ShadowBuilder {
+        private final Drawable mShadow;
+
+        public ShadowBuilder(View view) {
+            if (view == null) {
+                throw new NullPointerException("view == null");
+            }
+            mShadow = createShadow(view);
+        }
+
+        protected Drawable createShadow(@NonNull View view) {
+            final Bitmap.Config config = Bitmap.Config.ARGB_8888;
+            final Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), config);
+            final Canvas canvas = new Canvas(bitmap);
+            view.draw(canvas);
+            return new BitmapDrawable(view.getResources(), bitmap.copy(config, false));
+        }
     }
 }
