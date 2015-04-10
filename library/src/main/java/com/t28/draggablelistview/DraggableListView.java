@@ -139,8 +139,15 @@ public class DraggableListView extends RecyclerView {
     }
 
     private boolean onTouchMove(MotionEvent event) {
+        if (!isDragging()) {
+            return false;
+        }
+
         mTouchMovePoint.x = (int) event.getX(mDragPointerId);
         mTouchMovePoint.y = (int) event.getY(mDragPointerId);
+        mShadowBuilder.onMove(new Point(mTouchMovePoint));
+        invalidate();
+
         return false;
     }
 
