@@ -148,6 +148,7 @@ public class DraggableListView extends RecyclerView {
                 throw new NullPointerException("view == null");
             }
             mShadow = createShadow(view);
+            mShadow.setBounds(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
         }
 
         protected Drawable createShadow(@NonNull View view) {
