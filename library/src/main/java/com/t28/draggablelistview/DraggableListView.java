@@ -141,6 +141,8 @@ public class DraggableListView extends RecyclerView {
 
         mTouchMovePoint.x = (int) event.getX(mDragPointerId);
         mTouchMovePoint.y = (int) event.getY(mDragPointerId);
+
+        reset();
         return false;
     }
 
@@ -166,11 +168,20 @@ public class DraggableListView extends RecyclerView {
 
         mTouchMovePoint.x = (int) event.getX(mDragPointerId);
         mTouchMovePoint.y = (int) event.getY(mDragPointerId);
+
+        reset();
         return false;
     }
 
     private boolean onTouchPointerUp(MotionEvent event) {
         return onTouchUp(event);
+    }
+
+    private void reset() {
+        mDragPointerId = MotionEvent.INVALID_POINTER_ID;
+        mDraggingItemId = NO_ID;
+        mDraggingView = null;
+        mShadowBuilder = null;
     }
 
     public static abstract class Adapter<VH extends ViewHolder> extends RecyclerView.Adapter<VH> {
