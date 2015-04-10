@@ -55,7 +55,8 @@ public class DraggableListView extends RecyclerView {
     @Override
     public void setAdapter(RecyclerView.Adapter adapter) {
         if (!(adapter instanceof Adapter)) {
-            throw new IllegalArgumentException(String.format("'adapter' must be an instance of %s", Adapter.class.getCanonicalName()));
+            final String message = String.format("'adapter' must be an instance of %s", Adapter.class.getCanonicalName());
+            throw new IllegalArgumentException(message);
         }
         super.setAdapter(adapter);
     }
@@ -72,11 +73,13 @@ public class DraggableListView extends RecyclerView {
     public void startDrag(View view) {
         final ViewHolder viewHolder = getChildViewHolder(view);
         if (viewHolder == null) {
-            throw new IllegalArgumentException(String.format("View(%s) is not found in %s", view, this));
+            final String message = String.format("View(%s) is not found in %s", view, this);
+            throw new IllegalArgumentException(message);
         }
 
         if (isDragging()) {
-            throw new IllegalStateException(String.format("Another view(%s) is dragging", mDraggingView));
+            final String message = String.format("Another view(%s) is dragging", mDraggingView);
+            throw new IllegalStateException(message);
         }
 
         mDraggingItemId = viewHolder.getItemId();
