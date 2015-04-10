@@ -158,6 +158,11 @@ public class DraggableListView extends RecyclerView {
             invalidate();
         }
 
+        final View underView = findChildViewUnder(mTouchMovePoint.x, mTouchMovePoint.y);
+        if (moveTo(underView)) {
+            mDraggingView = underView;
+        }
+
         return true;
     }
 
@@ -184,8 +189,24 @@ public class DraggableListView extends RecyclerView {
         mShadowBuilder = null;
     }
 
+    private boolean moveTo(View underView) {
+        if (underView == null) {
+            return false;
+        }
+
+        final int fromPosition = getChildAdapterPosition(mDraggingView);
+        final int toPosition = getChildAdapterPosition(underView);
+        if (fromPosition < 0 || toPosition < 0) {
+            return false;
+        }
+
+        return getAdapter().move(fromPosition, toPosition);
+    }
+
     public static abstract class Adapter<VH extends ViewHolder> extends RecyclerView.Adapter<VH> {
         public abstract long getItemId(int position);
+
+        public abstract boolean move(int position1, int position2);
     }
 
     public static abstract class ShadowBuilder {
