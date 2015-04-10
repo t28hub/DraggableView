@@ -15,6 +15,7 @@ public class DraggableListView extends RecyclerView {
     private final PointF mTouchMovePoint;
 
     private int mDragPointerId = MotionEvent.INVALID_POINTER_ID;
+    private long mDraggingItemId = NO_ID;
     private View mDraggingView;
 
     public DraggableListView(Context context) {
@@ -69,14 +70,16 @@ public class DraggableListView extends RecyclerView {
     }
 
     public void startDrag(View view) {
-        final int index = indexOfChild(view);
-        if (index < 0) {
+        final ViewHolder viewHolder = getChildViewHolder(view);
+        if (viewHolder == null) {
             throw new IllegalArgumentException(String.format("View(%s) is not found in %s", view, this));
         }
 
         if (isDragging()) {
             throw new IllegalStateException(String.format("Another view(%s) is dragging", mDraggingView));
         }
+
+        mDraggingItemId = viewHolder.getItemId();
         mDraggingView = view;
     }
 
