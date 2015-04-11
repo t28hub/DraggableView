@@ -30,11 +30,11 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
         return getFactory(position).getTitle();
     }
 
-    public void add(FragmentFactory factory) {
-        if (factory == null) {
-            throw new NullPointerException("factory == null");
+    public void addAll(List<FragmentFactory> factories) {
+        if (factories == null || factories.size() == 0) {
+            return;
         }
-        mFactories.add(factory);
+        mFactories.addAll(factories);
         notifyDataSetChanged();
     }
 
