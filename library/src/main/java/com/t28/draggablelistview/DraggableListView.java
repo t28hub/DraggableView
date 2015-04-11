@@ -263,7 +263,7 @@ public class DraggableListView extends RecyclerView {
     private boolean scrollHorizontallyIfNeeded() {
         final Rect shadowBounds = mShadowBuilder.getShadow().getBounds();
         if (canScrollHorizontally(-1) && mTouchMovePoint.x < (getLeft() + shadowBounds.width())) {
-            scrollBy(0, -1);
+            scrollBy(-1, 0);
             return true;
         }
 
