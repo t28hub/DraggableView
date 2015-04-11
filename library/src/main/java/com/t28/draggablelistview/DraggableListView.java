@@ -230,15 +230,19 @@ public class DraggableListView extends RecyclerView {
 
     private void handleScroll() {
         final boolean isScrolled = scrollIfNeeded();
+        if (!isScrolled) {
+            return;
+        }
+
         postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!isDragging() || !isScrolled) {
+                if (!isDragging()) {
                     return;
                 }
                 handleScroll();
             }
-        }, 100);
+        }, 50);
     }
 
     private boolean scrollIfNeeded() {
