@@ -72,9 +72,9 @@ public class ItemAdapter extends DraggableListView.Adapter<ItemAdapter.ItemViewH
     }
 
     public interface OnItemClickListener {
-        void onItemClick(String title);
+        void onItemClick(View view, int position);
 
-        void onItemLongClick(String title);
+        void onItemLongClick(View view, int position);
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
@@ -92,8 +92,7 @@ public class ItemAdapter extends DraggableListView.Adapter<ItemAdapter.ItemViewH
                 return;
             }
 
-            final String title = getItem(getAdapterPosition());
-            mItemClickListener.onItemClick(title);
+            mItemClickListener.onItemClick(itemView, getAdapterPosition());
         }
 
         @Override
@@ -103,7 +102,7 @@ public class ItemAdapter extends DraggableListView.Adapter<ItemAdapter.ItemViewH
             }
 
             final String title = getItem(getAdapterPosition());
-            mItemClickListener.onItemLongClick(title);
+            mItemClickListener.onItemLongClick(itemView, getAdapterPosition());
             return true;
         }
 

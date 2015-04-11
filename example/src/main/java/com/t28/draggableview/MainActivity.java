@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.t28.draggablelistview.DraggableListView;
 
@@ -52,12 +53,12 @@ public class MainActivity extends ActionBarActivity implements ItemAdapter.OnIte
     }
 
     @Override
-    public void onItemClick(String title) {
+    public void onItemClick(View view, int position) {
 
     }
 
     @Override
-    public void onItemLongClick(String title) {
+    public void onItemLongClick(View view, int position) {
 
     }
 }
