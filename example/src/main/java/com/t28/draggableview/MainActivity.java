@@ -3,6 +3,7 @@ package com.t28.draggableview;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +24,7 @@ public class MainActivity extends ActionBarActivity implements ItemAdapter.OnIte
 
         mListView = (DraggableListView) findViewById(R.id.main_container);
         mListView.setHasFixedSize(true);
-        mListView.setLayoutManager(new GridLayoutManager(this, 2));
+        mListView.setLayoutManager(new GridLayoutManager(this, 2, LinearLayoutManager.HORIZONTAL, false));
 
         final List<String> dataSet = Arrays.asList(getResources().getStringArray(R.array.lineups));
         final ItemAdapter adapter = new ItemAdapter(dataSet);
