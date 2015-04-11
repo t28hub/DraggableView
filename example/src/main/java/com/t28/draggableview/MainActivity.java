@@ -64,7 +64,6 @@ public class MainActivity extends ActionBarActivity implements ItemAdapter.OnIte
             return;
         }
 
-        mListView.startDrag(view, new DraggableListView.ShadowBuilder(view) {
-        });
+        mListView.startDrag(view, new DraggableListView.ShadowBuilder(view));
     }
 }

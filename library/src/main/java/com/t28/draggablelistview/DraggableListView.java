@@ -209,7 +209,7 @@ public class DraggableListView extends RecyclerView {
         public abstract boolean move(int position1, int position2);
     }
 
-    public static abstract class ShadowBuilder {
+    public static class ShadowBuilder {
         private final Drawable mShadow;
 
         public ShadowBuilder(View view) {
