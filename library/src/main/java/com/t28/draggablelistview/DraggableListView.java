@@ -229,9 +229,8 @@ public class DraggableListView extends RecyclerView {
     }
 
     private void handleScroll() {
-        final boolean isVerticallyScrolled = scrollVerticallyIfNeeded();
-        final boolean isHorizontallyScrolled = scrollHorizontallyIfNeeded();
-        if (!isVerticallyScrolled && !isHorizontallyScrolled) {
+        final boolean isScrolled = scrollIfNeeded();
+        if (!isScrolled) {
             return;
         }
 
@@ -246,32 +245,40 @@ public class DraggableListView extends RecyclerView {
         }, 50);
     }
 
-    private boolean scrollVerticallyIfNeeded() {
-        final Rect shadowBounds = mShadowBuilder.getShadow().getBounds();
-        if (canScrollVertically(-1) && mTouchMovePoint.y < (getTop() + shadowBounds.height())) {
-            scrollBy(0, -1);
-            return true;
+    private boolean scrollIfNeeded() {
+        final Rect shadowBounds = mShadowBuilder.getBounds();
+        final int scrollY = computeScrollY(shadowBounds);
+        final int scrollX = computeScrollX(shadowBounds);
+        if (scrollX == 0 && scrollY == 0) {
+            return false;
         }
 
-        if (canScrollVertically(1) && (getBottom() - shadowBounds.height()) < mTouchMovePoint.y) {
-            scrollBy(0, 1);
-            return true;
-        }
-        return false;
+        scrollBy(scrollX, scrollY);
+        return true;
     }
 
-    private boolean scrollHorizontallyIfNeeded() {
-        final Rect shadowBounds = mShadowBuilder.getShadow().getBounds();
-        if (canScrollHorizontally(-1) && mTouchMovePoint.x < (getLeft() + shadowBounds.width())) {
-            scrollBy(-1, 0);
-            return true;
+    private int computeScrollX(Rect shadowBounds) {
+        final int shadowWidth = shadowBounds.width();
+        if (canScrollHorizontally(-1) && mTouchMovePoint.x < (getLeft() + shadowWidth)) {
+            return -1;
         }
 
-        if (canScrollHorizontally(1) && (getRight() - shadowBounds.width()) < mTouchMovePoint.x) {
-            scrollBy(1, 0);
-            return true;
+        if (canScrollHorizontally(1) && (getRight() - shadowWidth) < mTouchMovePoint.x) {
+            return 1;
         }
-        return false;
+        return 0;
+    }
+
+    private int computeScrollY(Rect shadowBounds) {
+        final int shadowHeight = shadowBounds.height();
+        if (canScrollVertically(-1) && mTouchMovePoint.y < (getTop() + shadowHeight)) {
+            return -1;
+        }
+
+        if (canScrollVertically(1) && (getBottom() - shadowHeight) < mTouchMovePoint.y) {
+            return 1;
+        }
+        return 0;
     }
 
     public static abstract class Adapter<VH extends ViewHolder> extends RecyclerView.Adapter<VH> {
@@ -320,6 +327,10 @@ public class DraggableListView extends RecyclerView {
             mShadow.setBounds(newBounds);
 
             return oldBounds.equals(newBounds);
+        }
+
+        Rect getBounds() {
+            return mShadow.getBounds();
         }
     }
 }
