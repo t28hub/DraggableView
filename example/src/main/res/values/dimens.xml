@@ -1,2 +1,5 @@
 <resources>
+    <dimen name="list_item_padding">8dp</dimen>
+    <dimen name="list_item_height">56dp</dimen>
+    <dimen name="list_item_title">20sp</dimen>
 </resources>
