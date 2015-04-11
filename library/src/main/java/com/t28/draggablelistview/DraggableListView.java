@@ -229,8 +229,9 @@ public class DraggableListView extends RecyclerView {
     }
 
     private void handleScroll() {
-        final boolean isScrolled = scrollIfNeeded();
-        if (!isScrolled) {
+        final boolean isVerticallyScrolled = scrollVerticallyIfNeeded();
+        final boolean isHorizontallyScrolled = scrollHorizontallyIfNeeded();
+        if (!isVerticallyScrolled && !isHorizontallyScrolled) {
             return;
         }
 
@@ -245,7 +246,7 @@ public class DraggableListView extends RecyclerView {
         }, 50);
     }
 
-    private boolean scrollIfNeeded() {
+    private boolean scrollVerticallyIfNeeded() {
         final Rect shadowBounds = mShadowBuilder.getShadow().getBounds();
         if (canScrollVertically(-1) && mTouchMovePoint.y < (getTop() + shadowBounds.height())) {
             scrollBy(0, -1);
@@ -254,6 +255,20 @@ public class DraggableListView extends RecyclerView {
 
         if (canScrollVertically(1) && (getBottom() - shadowBounds.height()) < mTouchMovePoint.y) {
             scrollBy(0, 1);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean scrollHorizontallyIfNeeded() {
+        final Rect shadowBounds = mShadowBuilder.getShadow().getBounds();
+        if (canScrollHorizontally(-1) && mTouchMovePoint.x < (getLeft() + shadowBounds.width())) {
+            scrollBy(0, -1);
+            return true;
+        }
+
+        if (canScrollHorizontally(1) && (getRight() - shadowBounds.width()) < mTouchMovePoint.x) {
+            scrollBy(1, 0);
             return true;
         }
         return false;
