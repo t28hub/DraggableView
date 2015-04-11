@@ -201,7 +201,15 @@ public class DraggableListView extends RecyclerView {
             return false;
         }
 
-        return getAdapter().move(fromPosition, toPosition);
+        final boolean isMoved = getAdapter().move(fromPosition, toPosition);
+        if (!isMoved) {
+            return false;
+        }
+
+        if (fromPosition == 0 || toPosition == 0) {
+            scrollToPosition(0);
+        }
+        return true;
     }
 
     public static abstract class Adapter<VH extends ViewHolder> extends RecyclerView.Adapter<VH> {
