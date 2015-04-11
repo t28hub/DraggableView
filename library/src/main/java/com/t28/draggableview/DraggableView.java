@@ -30,6 +30,7 @@ public class DraggableView extends RecyclerView {
     private long mDraggingItemId = NO_ID;
     private View mDraggingView;
     private ShadowBuilder mShadowBuilder;
+    private OnDragListener mDragListener;
 
     public DraggableView(Context context) {
         this(context, null, NO_DEF_STYLE);
@@ -115,6 +116,10 @@ public class DraggableView extends RecyclerView {
         mDraggingView = view;
         mShadowBuilder = shadowBuilder;
         invalidate();
+    }
+
+    public void setOnDragListener(OnDragListener listener) {
+        mDragListener = listener;
     }
 
     private boolean handleTouchEvent(MotionEvent event) {
@@ -294,6 +299,10 @@ public class DraggableView extends RecyclerView {
             return LOWER_DISTANCE;
         }
         return NO_DISTANCE;
+    }
+
+    public interface OnDragListener {
+        void onDrag();
     }
 
     public static abstract class Adapter<VH extends ViewHolder> extends RecyclerView.Adapter<VH> {
