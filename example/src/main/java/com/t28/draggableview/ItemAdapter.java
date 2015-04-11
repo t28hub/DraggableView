@@ -103,7 +103,7 @@ public class ItemAdapter extends DraggableListView.Adapter<ItemAdapter.ItemViewH
             }
 
             final String title = getItem(getAdapterPosition());
-            mItemClickListener.onItemClick(title);
+            mItemClickListener.onItemLongClick(title);
             return true;
         }
 
