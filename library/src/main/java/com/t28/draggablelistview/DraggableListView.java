@@ -187,6 +187,7 @@ public class DraggableListView extends RecyclerView {
         mDraggingItemId = NO_ID;
         mDraggingView = null;
         mShadowBuilder = null;
+        invalidate();
     }
 
     private boolean moveTo(View underView) {
