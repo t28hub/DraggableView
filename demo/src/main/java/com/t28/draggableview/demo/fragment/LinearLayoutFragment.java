@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.t28.draggableview.DraggableView;
 import com.t28.draggableview.demo.R;
+import com.t28.draggableview.demo.adapter.FragmentAdapter;
 
 public class LinearLayoutFragment extends Fragment {
     public LinearLayoutFragment() {
@@ -20,5 +21,23 @@ public class LinearLayoutFragment extends Fragment {
         view.setHasFixedSize(true);
         view.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
+    }
+
+    public static final class Factory implements FragmentAdapter.FragmentFactory {
+        private final CharSequence mTitle;
+
+        public Factory(CharSequence title) {
+            mTitle = title;
+        }
+
+        @Override
+        public Fragment create() {
+            return new LinearLayoutFragment();
+        }
+
+        @Override
+        public CharSequence getTitle() {
+            return mTitle;
+        }
     }
 }
