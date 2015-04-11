@@ -164,6 +164,7 @@ public class DraggableListView extends RecyclerView {
             mDraggingView = underView;
         }
 
+        handleScroll();
         return true;
     }
 
@@ -222,6 +223,32 @@ public class DraggableListView extends RecyclerView {
             }
         }
         return NO_POSITION;
+    }
+
+    private void handleScroll() {
+        final boolean isScrolled = scrollIfNeeded();
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!isDragging() || !isScrolled) {
+                    return;
+                }
+                handleScroll();
+            }
+        }, 100);
+    }
+
+    private boolean scrollIfNeeded() {
+        if (canScrollVertically(-1) && mTouchMovePoint.y < getTop()) {
+            scrollBy(0, -1);
+            return true;
+        }
+
+        if (canScrollVertically(1) && getBottom() < mTouchMovePoint.y) {
+            scrollBy(0, 1);
+            return true;
+        }
+        return false;
     }
 
     public static abstract class Adapter<VH extends ViewHolder> extends RecyclerView.Adapter<VH> {
