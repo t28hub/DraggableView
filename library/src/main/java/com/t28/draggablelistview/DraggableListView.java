@@ -259,13 +259,17 @@ public class DraggableListView extends RecyclerView {
 
         protected boolean onMove(@NonNull Point newPoint) {
             final Rect oldBounds = mShadow.getBounds();
+            final int halfWidth = oldBounds.width() / 2;
+            final int halfHeight = oldBounds.height() / 2;
+
             final Rect newBounds = new Rect();
-            newBounds.left = newPoint.x;
-            newBounds.top = newPoint.y;
-            newBounds.right = newPoint.x + oldBounds.width();
-            newBounds.bottom = newPoint.y + oldBounds.height();
+            newBounds.left = newPoint.x - halfWidth;
+            newBounds.top = newPoint.y - halfHeight;
+            newBounds.right = newPoint.x + halfWidth;
+            newBounds.bottom = newPoint.y + halfHeight;
             mShadow.setBounds(newBounds);
-            return !newBounds.equals(oldBounds);
+
+            return oldBounds.equals(newBounds);
         }
     }
 }
