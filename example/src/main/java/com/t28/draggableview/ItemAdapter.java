@@ -83,6 +83,7 @@ public class ItemAdapter extends DraggableListView.Adapter<ItemAdapter.ItemViewH
         public ItemViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
             mTitleView = (TextView) itemView.findViewById(R.id.item_title);
         }
 
