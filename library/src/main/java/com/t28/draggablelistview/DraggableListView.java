@@ -101,7 +101,7 @@ public class DraggableListView extends RecyclerView {
             throw new IllegalStateException(message);
         }
 
-        mDraggingItemId = viewHolder.getItemId();
+        mDraggingItemId = getAdapter().getItemId(viewHolder.getAdapterPosition());
         mDraggingView = view;
         mShadowBuilder = shadowBuilder;
         invalidate();
