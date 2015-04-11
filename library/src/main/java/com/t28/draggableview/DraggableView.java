@@ -34,6 +34,16 @@ public class DraggableView extends RecyclerView {
         }
     };
 
+    private final Runnable mScrollDetectionCommand = new Runnable() {
+        @Override
+        public void run() {
+            if (!isDragging()) {
+                return;
+            }
+            handleScroll();
+        }
+    };
+
     private final Point mTouchDownPoint;
     private final Point mTouchMovePoint;
 
@@ -263,15 +273,7 @@ public class DraggableView extends RecyclerView {
             return;
         }
 
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!isDragging()) {
-                    return;
-                }
-                handleScroll();
-            }
-        }, SCROLL_DETECTION_INTERVAL);
+        postDelayed(mScrollDetectionCommand, SCROLL_DETECTION_INTERVAL);
     }
 
     private boolean scrollIfNeeded() {
