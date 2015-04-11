@@ -1,6 +1,7 @@
 package com.t28.draggableview;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class ItemAdapter extends DraggableListView.Adapter<ItemAdapter.ItemViewH
             throw new IndexOutOfBoundsException();
         }
 
+        Log.d("TAG", String.format("pos1:%s, pos2:%s", getItem(position1), getItem(position2)));
         mItems.add(position2, mItems.remove(position1));
         notifyItemMoved(position1, position2);
 
