@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">ExampleApplication</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="lineups">
+        <item>Avicii</item>
+        <item>Bassnectar</item>
+        <item>David Guetta</item>
+        <item>Dimitri vegas &amp; Like mike</item>
+        <item>Diplo</item>
+        <item>Kaskade</item>
+        <item>Martin Garrix</item>
+        <item>Nicky Romero</item>
+        <item>Richie Hawtin</item>
+        <item>SKRILLEX</item>
+        <item>Steve Aoki</item>
+        <item>Tiest</item>
+        <item>ZEDD</item>
+    </string-array>
 </resources>
