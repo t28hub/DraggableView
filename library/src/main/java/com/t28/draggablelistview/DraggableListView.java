@@ -195,7 +195,7 @@ public class DraggableListView extends RecyclerView {
             return false;
         }
 
-        final int fromPosition = getChildAdapterPosition(mDraggingView);
+        final int fromPosition = findPositionForItemId(mDraggingItemId);
         final int toPosition = getChildAdapterPosition(underView);
         if (fromPosition < 0 || toPosition < 0) {
             return false;
@@ -210,6 +210,17 @@ public class DraggableListView extends RecyclerView {
             scrollToPosition(0);
         }
         return true;
+    }
+
+    private int findPositionForItemId(long itemId) {
+        final Adapter adapter = getAdapter();
+        final int itemCount = adapter.getItemCount();
+        for (int position = 0; position < itemCount; position++) {
+            if (adapter.getItemId(position) == itemId) {
+                return position;
+            }
+        }
+        return NO_POSITION;
     }
 
     public static abstract class Adapter<VH extends ViewHolder> extends RecyclerView.Adapter<VH> {
