@@ -16,6 +16,7 @@ import android.view.View;
 public class DraggableListView extends RecyclerView {
     private static final int NO_DEF_STYLE = 0;
     private static final int INITIAL_POINTER_INDEX = 0;
+    private static final int SCROLL_DETECTION_INTERVAL = 50;
 
     private final Point mTouchDownPoint;
     private final Point mTouchMovePoint;
@@ -247,7 +248,7 @@ public class DraggableListView extends RecyclerView {
                 }
                 handleScroll();
             }
-        }, 50);
+        }, SCROLL_DETECTION_INTERVAL);
     }
 
     private boolean scrollIfNeeded() {
