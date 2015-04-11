@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.ItemAnimator.ItemAnimatorFinishedListener;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,6 +23,16 @@ public class DraggableView extends RecyclerView {
     private static final int RIGHTWARD_DISTANCE = 1;
     private static final int UPPER_DISTANCE = -1;
     private static final int LOWER_DISTANCE = 1;
+
+    private final ItemAnimatorFinishedListener mMoveFinishedListener = new ItemAnimatorFinishedListener() {
+        @Override
+        public void onAnimationsFinished() {
+            final View underView = findChildViewUnder(mTouchMovePoint.x, mTouchMovePoint.y);
+            if (moveTo(underView)) {
+                mDraggingView = underView;
+            }
+        }
+    };
 
     private final Point mTouchDownPoint;
     private final Point mTouchMovePoint;
@@ -173,9 +184,11 @@ public class DraggableView extends RecyclerView {
             invalidate();
         }
 
-        final View underView = findChildViewUnder(mTouchMovePoint.x, mTouchMovePoint.y);
-        if (moveTo(underView)) {
-            mDraggingView = underView;
+        final ItemAnimator animator = getItemAnimator();
+        if (animator == null) {
+            mMoveFinishedListener.onAnimationsFinished();
+        } else {
+            animator.isRunning(mMoveFinishedListener);
         }
 
         handleScroll();
