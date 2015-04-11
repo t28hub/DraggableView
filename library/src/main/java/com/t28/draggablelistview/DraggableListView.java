@@ -86,6 +86,9 @@ public class DraggableListView extends RecyclerView {
     }
 
     public void startDrag(View view, ShadowBuilder shadowBuilder) {
+        if (view == null) {
+            throw new NullPointerException("'view == null'");
+        }
         if (shadowBuilder == null) {
             throw new NullPointerException("'shadowBuilder == null'");
         }
@@ -239,12 +242,13 @@ public class DraggableListView extends RecyclerView {
     }
 
     private boolean scrollIfNeeded() {
-        if (canScrollVertically(-1) && mTouchMovePoint.y < getTop()) {
+        final Rect shadowBounds = mShadowBuilder.getShadow().getBounds();
+        if (canScrollVertically(-1) && mTouchMovePoint.y < (getTop() + shadowBounds.height())) {
             scrollBy(0, -1);
             return true;
         }
 
-        if (canScrollVertically(1) && getBottom() < mTouchMovePoint.y) {
+        if (canScrollVertically(1) && (getBottom() - shadowBounds.height()) < mTouchMovePoint.y) {
             scrollBy(0, 1);
             return true;
         }
