@@ -62,7 +62,7 @@ public class ItemAdapter extends DraggableListView.Adapter<ItemAdapter.ItemViewH
         mItems.add(position2, mItems.remove(position1));
         notifyItemMoved(position1, position2);
 
-        return false;
+        return true;
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
