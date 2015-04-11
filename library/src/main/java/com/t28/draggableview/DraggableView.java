@@ -302,7 +302,7 @@ public class DraggableView extends RecyclerView {
     }
 
     public interface OnDragListener {
-        void onDrag();
+        void onDrag(@NonNull DragEvent event);
     }
 
     public static abstract class Adapter<VH extends ViewHolder> extends RecyclerView.Adapter<VH> {
