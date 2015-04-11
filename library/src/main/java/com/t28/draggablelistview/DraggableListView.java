@@ -17,6 +17,11 @@ public class DraggableListView extends RecyclerView {
     private static final int NO_DEF_STYLE = 0;
     private static final int INITIAL_POINTER_INDEX = 0;
     private static final int SCROLL_DETECTION_INTERVAL = 50;
+    private static final int NO_DISTANCE = 0;
+    private static final int LEFTWARD_DISTANCE = -1;
+    private static final int RIGHTWARD_DISTANCE = 1;
+    private static final int UPPER_DISTANCE = -1;
+    private static final int LOWER_DISTANCE = 1;
 
     private final Point mTouchDownPoint;
     private final Point mTouchMovePoint;
@@ -255,7 +260,7 @@ public class DraggableListView extends RecyclerView {
         final Rect shadowBounds = mShadowBuilder.getBounds();
         final int scrollY = computeScrollY(shadowBounds);
         final int scrollX = computeScrollX(shadowBounds);
-        if (scrollX == 0 && scrollY == 0) {
+        if (scrollX == NO_DISTANCE && scrollY == NO_DISTANCE) {
             return false;
         }
 
@@ -265,26 +270,30 @@ public class DraggableListView extends RecyclerView {
 
     private int computeScrollX(Rect shadowBounds) {
         final int shadowWidth = shadowBounds.width();
-        if (canScrollHorizontally(-1) && mTouchMovePoint.x < (getLeft() + shadowWidth)) {
-            return -1;
+        final int thresholdLeft = getLeft() + shadowWidth;
+        if (canScrollHorizontally(LEFTWARD_DISTANCE) && mTouchMovePoint.x < thresholdLeft) {
+            return LEFTWARD_DISTANCE;
         }
 
-        if (canScrollHorizontally(1) && (getRight() - shadowWidth) < mTouchMovePoint.x) {
-            return 1;
+        final int thresholdRight = getRight() - shadowWidth;
+        if (canScrollHorizontally(RIGHTWARD_DISTANCE) && thresholdRight < mTouchMovePoint.x) {
+            return RIGHTWARD_DISTANCE;
         }
-        return 0;
+        return NO_DISTANCE;
     }
 
     private int computeScrollY(Rect shadowBounds) {
         final int shadowHeight = shadowBounds.height();
-        if (canScrollVertically(-1) && mTouchMovePoint.y < (getTop() + shadowHeight)) {
-            return -1;
+        final int thresholdTop = getTop() - shadowHeight;
+        if (canScrollVertically(UPPER_DISTANCE) && mTouchMovePoint.y < thresholdTop) {
+            return UPPER_DISTANCE;
         }
 
-        if (canScrollVertically(1) && (getBottom() - shadowHeight) < mTouchMovePoint.y) {
-            return 1;
+        final int thresholdBottom = getBottom() - shadowHeight;
+        if (canScrollVertically(LOWER_DISTANCE) && thresholdBottom < mTouchMovePoint.y) {
+            return LOWER_DISTANCE;
         }
-        return 0;
+        return NO_DISTANCE;
     }
 
     public static abstract class Adapter<VH extends ViewHolder> extends RecyclerView.Adapter<VH> {
