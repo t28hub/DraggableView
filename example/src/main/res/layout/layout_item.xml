@@ -12,7 +12,8 @@
         android:id="@+id/item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center"
+        android:singleLine="true"
         android:textSize="@dimen/list_item_title"/>
 
 </FrameLayout>
