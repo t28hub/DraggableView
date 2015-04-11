@@ -321,6 +321,7 @@ public class DraggableView extends RecyclerView {
             return new BitmapDrawable(view.getResources(), bitmap.copy(config, false));
         }
 
+        @NonNull
         protected Drawable getShadow() {
             return mShadow;
         }
