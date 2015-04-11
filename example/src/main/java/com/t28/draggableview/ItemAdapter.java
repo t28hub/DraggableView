@@ -14,6 +14,7 @@ import java.util.List;
 
 public class ItemAdapter extends DraggableListView.Adapter<ItemAdapter.ItemViewHolder> {
     private final List<String> mItems;
+    private OnItemClickListener mItemClickListener;
 
     public ItemAdapter(List<String> items) {
         if (items == null || items.size() == 0) {
@@ -62,16 +63,35 @@ public class ItemAdapter extends DraggableListView.Adapter<ItemAdapter.ItemViewH
         return false;
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mItemClickListener = listener;
+    }
+
     private String getItem(int position) {
         return mItems.get(position);
     }
 
-    public static class ItemViewHolder extends RecyclerView.ViewHolder {
+    public interface OnItemClickListener {
+        void onItemClick(String title);
+    }
+
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView mTitleView;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             mTitleView = (TextView) itemView.findViewById(R.id.item_title);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mItemClickListener == null) {
+                return;
+            }
+
+            final String title = getItem(getAdapterPosition());
+            mItemClickListener.onItemClick(title);
         }
 
         public void bind(String title) {
