@@ -229,6 +229,11 @@ public class DraggableListView extends RecyclerView {
     }
 
     private void handleScroll() {
+        // postDelayedで呼び出された時に既にドラッグが完了している可能性がある。
+        if (!isDragging()) {
+            return;
+        }
+
         final boolean isScrolled = scrollIfNeeded();
         if (!isScrolled) {
             return;
