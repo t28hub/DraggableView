@@ -55,4 +55,9 @@ public class MainActivity extends ActionBarActivity implements ItemAdapter.OnIte
     public void onItemClick(String title) {
 
     }
+
+    @Override
+    public void onItemLongClick(String title) {
+
+    }
 }
