@@ -14,20 +14,21 @@ import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity implements ItemAdapter.OnItemClickListener {
+    private DraggableListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final DraggableListView listView = (DraggableListView) findViewById(R.id.main_container);
-        listView.setHasFixedSize(true);
-        listView.setLayoutManager(new LinearLayoutManager(this));
+        mListView = (DraggableListView) findViewById(R.id.main_container);
+        mListView.setHasFixedSize(true);
+        mListView.setLayoutManager(new LinearLayoutManager(this));
 
         final List<String> dataSet = Arrays.asList(getResources().getStringArray(R.array.lineups));
         final ItemAdapter adapter = new ItemAdapter(dataSet);
         adapter.setOnItemClickListener(this);
-        listView.setAdapter(adapter);
+        mListView.setAdapter(adapter);
     }
 
     @Override
@@ -59,6 +60,11 @@ public class MainActivity extends ActionBarActivity implements ItemAdapter.OnIte
 
     @Override
     public void onItemLongClick(View view, int position) {
+        if (mListView.isDragging()) {
+            return;
+        }
 
+        mListView.startDrag(view, new DraggableListView.ShadowBuilder(view) {
+        });
     }
 }
