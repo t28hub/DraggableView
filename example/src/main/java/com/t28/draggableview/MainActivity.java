@@ -1,15 +1,18 @@
 package com.t28.draggableview;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.t28.draggablelistview.DraggableListView;
 
+import java.util.Arrays;
+import java.util.List;
 
-public class MainActivity extends ActionBarActivity {
+
+public class MainActivity extends ActionBarActivity implements ItemAdapter.OnItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,11 @@ public class MainActivity extends ActionBarActivity {
         final DraggableListView listView = (DraggableListView) findViewById(R.id.main_container);
         listView.setHasFixedSize(true);
         listView.setLayoutManager(new LinearLayoutManager(this));
+
+        final List<String> dataSet = Arrays.asList(getResources().getStringArray(R.array.lineups));
+        final ItemAdapter adapter = new ItemAdapter(dataSet);
+        adapter.setOnItemClickListener(this);
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -41,5 +49,10 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(String title) {
+
     }
 }
