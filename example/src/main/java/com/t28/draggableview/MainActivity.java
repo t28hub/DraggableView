@@ -7,21 +7,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.t28.draggablelistview.DraggableListView;
-
 import java.util.Arrays;
 import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity implements ItemAdapter.OnItemClickListener {
-    private DraggableListView mListView;
+    private DraggableView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mListView = (DraggableListView) findViewById(R.id.main_container);
+        mListView = (DraggableView) findViewById(R.id.main_container);
         mListView.setHasFixedSize(true);
         mListView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
@@ -64,6 +62,6 @@ public class MainActivity extends ActionBarActivity implements ItemAdapter.OnIte
             return;
         }
 
-        mListView.startDrag(view, new DraggableListView.ShadowBuilder(view));
+        mListView.startDrag(view, new DraggableView.ShadowBuilder(view));
     }
 }

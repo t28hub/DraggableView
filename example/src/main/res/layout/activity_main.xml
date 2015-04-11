@@ -1,4 +1,4 @@
-<com.t28.draggablelistview.DraggableListView
+<com.t28.draggableview.DraggableView
     android:id="@+id/main_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"

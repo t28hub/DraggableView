@@ -1,4 +1,4 @@
-package com.t28.draggablelistview;
+package com.t28.draggableview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,7 +13,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class DraggableListView extends RecyclerView {
+public class DraggableView extends RecyclerView {
     private static final int NO_DEF_STYLE = 0;
     private static final int INITIAL_POINTER_INDEX = 0;
     private static final int SCROLL_DETECTION_INTERVAL = 50;
@@ -31,15 +31,15 @@ public class DraggableListView extends RecyclerView {
     private View mDraggingView;
     private ShadowBuilder mShadowBuilder;
 
-    public DraggableListView(Context context) {
+    public DraggableView(Context context) {
         this(context, null, NO_DEF_STYLE);
     }
 
-    public DraggableListView(Context context, AttributeSet attrs) {
+    public DraggableView(Context context, AttributeSet attrs) {
         this(context, attrs, NO_DEF_STYLE);
     }
 
-    public DraggableListView(Context context, AttributeSet attrs, int defStyle) {
+    public DraggableView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         mTouchDownPoint = new Point();

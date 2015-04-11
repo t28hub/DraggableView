@@ -7,13 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.t28.draggablelistview.DraggableListView;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ItemAdapter extends DraggableListView.Adapter<ItemAdapter.ItemViewHolder> {
+public class ItemAdapter extends DraggableView.Adapter<ItemAdapter.ItemViewHolder> {
     private final List<String> mItems;
     private OnItemClickListener mItemClickListener;
 
