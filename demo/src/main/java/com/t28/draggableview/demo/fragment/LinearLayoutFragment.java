@@ -11,15 +11,15 @@ import android.view.ViewGroup;
 
 import com.t28.draggableview.DraggableView;
 import com.t28.draggableview.demo.R;
-import com.t28.draggableview.demo.data.adapter.AppAdapter;
+import com.t28.draggableview.demo.data.adapter.AppListAdapter;
 import com.t28.draggableview.demo.data.adapter.FragmentAdapter;
 import com.t28.draggableview.demo.data.loader.AppListLoader;
 import com.t28.draggableview.demo.data.model.App;
 
 import java.util.List;
 
-public class LinearLayoutFragment extends Fragment implements AppAdapter.OnItemLongClickListener {
-    private AppAdapter mAdapter;
+public class LinearLayoutFragment extends Fragment implements AppListAdapter.OnItemLongClickListener {
+    private AppListAdapter mAdapter;
     private LoaderManager.LoaderCallbacks<List<App>> mAppListCallback;
 
     public LinearLayoutFragment() {
@@ -36,7 +36,7 @@ public class LinearLayoutFragment extends Fragment implements AppAdapter.OnItemL
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mAdapter = new AppAdapter();
+        mAdapter = new AppListAdapter();
         mAdapter.setOnItemLongClickListener(this);
         getDraggableView().setAdapter(mAdapter);
 

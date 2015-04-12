@@ -14,11 +14,11 @@ import com.t28.draggableview.demo.data.model.App;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppAdapter extends DraggableView.Adapter<AppAdapter.ItemViewHolder> {
+public class AppListAdapter extends DraggableView.Adapter<AppListAdapter.ItemViewHolder> {
     private final List<App> mApps;
     private OnItemLongClickListener mItemLongClickListener;
 
-    public AppAdapter() {
+    public AppListAdapter() {
         super();
         mApps = new ArrayList<>();
     }
