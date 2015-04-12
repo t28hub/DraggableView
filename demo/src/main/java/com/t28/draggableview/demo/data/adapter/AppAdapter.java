@@ -52,7 +52,7 @@ public class AppAdapter extends DraggableView.Adapter<AppAdapter.ItemViewHolder>
 
     public void changeApps(List<App> apps) {
         mApps.clear();
-        if (apps != null || apps.size() == 0) {
+        if (apps != null && apps.size() != 0) {
             mApps.addAll(apps);
         }
         notifyDataSetChanged();

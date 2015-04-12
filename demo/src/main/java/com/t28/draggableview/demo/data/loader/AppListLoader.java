@@ -1,9 +1,9 @@
 package com.t28.draggableview.demo.data.loader;
 
-import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.support.v4.content.AsyncTaskLoader;
 
 import com.t28.draggableview.demo.data.model.App;
 
@@ -18,6 +18,12 @@ public class AppListLoader extends AsyncTaskLoader<List<App>> {
         super(context);
         // 引数で与えられたContextがApplicationContext出ない可能性があるためgetContextを利用する。
         mPackageManager = getContext().getPackageManager();
+    }
+
+    @Override
+    protected void onStartLoading() {
+        super.onStartLoading();
+        forceLoad();
     }
 
     @Override

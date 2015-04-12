@@ -1,9 +1,9 @@
 package com.t28.draggableview.demo.fragment;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +13,15 @@ import com.t28.draggableview.DraggableView;
 import com.t28.draggableview.demo.R;
 import com.t28.draggableview.demo.data.adapter.AppAdapter;
 import com.t28.draggableview.demo.data.adapter.FragmentAdapter;
+import com.t28.draggableview.demo.data.loader.AppListLoader;
 import com.t28.draggableview.demo.data.model.App;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LinearLayoutFragment extends Fragment {
+    private DraggableView mDraggableView;
     private AppAdapter mAdapter;
+    private LoaderManager.LoaderCallbacks<List<App>> mAppListCallback;
 
     public LinearLayoutFragment() {
     }
@@ -29,33 +31,50 @@ public class LinearLayoutFragment extends Fragment {
         final DraggableView view = (DraggableView) inflater.inflate(R.layout.fragment_linear_layout, container, false);
         view.setHasFixedSize(true);
         view.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        mAdapter = new AppAdapter();
-        view.setAdapter(mAdapter);
         return view;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mAdapter = new AppAdapter();
+        getDraggableView().setAdapter(mAdapter);
 
-        // TODO: サブスレッドに逃す
-        final PackageManager manager = getActivity().getPackageManager();
-        final List<ApplicationInfo> applications = manager.getInstalledApplications(PackageManager.GET_META_DATA);
-        final List<App> apps = new ArrayList<>();
-        for (ApplicationInfo info : applications) {
-            if (!info.enabled) {
-                continue;
+        mAppListCallback = createAppListCallback();
+        getLoaderManager().initLoader(0, null, mAppListCallback);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getLoaderManager().destroyLoader(0);
+    }
+
+    private DraggableView getDraggableView() {
+        return (DraggableView) getView();
+    }
+
+    private void onChanged(List<App> newApps) {
+        mAdapter.changeApps(newApps);
+    }
+
+    private LoaderManager.LoaderCallbacks<List<App>> createAppListCallback() {
+        return new LoaderManager.LoaderCallbacks<List<App>>() {
+            @Override
+            public Loader<List<App>> onCreateLoader(int id, Bundle args) {
+                return new AppListLoader(getActivity());
             }
 
-            final App.Builder builder = new App.Builder();
-            builder.setPackageName(info.packageName)
-                    .setName(info.loadLabel(manager).toString())
-                    .setIcon(info.loadIcon(manager));
+            @Override
+            public void onLoadFinished(Loader<List<App>> loader, List<App> data) {
+                onChanged(data);
+            }
 
-            apps.add(builder.build());
-        }
-        mAdapter.changeApps(apps);
+            @Override
+            public void onLoaderReset(Loader<List<App>> loader) {
+                onChanged(null);
+            }
+        };
     }
 
     public static final class Factory implements FragmentAdapter.FragmentFactory {
