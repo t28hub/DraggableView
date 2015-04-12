@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/linear_layout_item_icon"
-        android:layout_width="@dimen/list_item_icon_width"
-        android:layout_height="@dimen/list_item_icon_height"
+        android:layout_width="@dimen/list_item_icon_size"
+        android:layout_height="@dimen/list_item_icon_size"
         android:layout_gravity="center_vertical"
         android:contentDescription="@null"/>
 
