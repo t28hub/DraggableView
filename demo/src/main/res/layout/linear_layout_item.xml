@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:textSize="@dimen/list_item_primary_text"
+        android:textColor="@color/primary_text_default_material_light"
         android:singleLine="true"/>
 
     <TextView
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:textSize="@dimen/list_item_secondary_text"
+        android:textColor="@color/secondary_text_default_material_light"
         android:singleLine="true"/>
 
 </FrameLayout>
