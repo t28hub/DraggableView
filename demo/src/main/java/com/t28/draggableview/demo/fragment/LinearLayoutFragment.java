@@ -6,6 +6,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -36,6 +37,8 @@ public class LinearLayoutFragment extends Fragment implements AppListAdapter.OnI
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
+
         mAdapter = new AppListAdapter();
         mAdapter.setOnItemLongClickListener(this);
         getDraggableView().setAdapter(mAdapter);
@@ -48,6 +51,15 @@ public class LinearLayoutFragment extends Fragment implements AppListAdapter.OnI
     public void onDestroyView() {
         super.onDestroyView();
         getLoaderManager().destroyLoader(0);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final int itemId = item.getItemId();
+        if (itemId == R.id.action_refresh) {
+            getLoaderManager().restartLoader(0, null, mAppListCallback);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
