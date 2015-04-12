@@ -20,7 +20,7 @@ import com.t28.draggableview.demo.data.model.App;
 import java.util.List;
 
 public class LinearLayoutFragment extends Fragment implements AppListAdapter.OnItemLongClickListener {
-    private AppListAdapter mAdapter;
+    private AppListAdapter mAppListAdapter;
     private LoaderManager.LoaderCallbacks<List<App>> mAppListCallback;
 
     public LinearLayoutFragment() {
@@ -39,9 +39,9 @@ public class LinearLayoutFragment extends Fragment implements AppListAdapter.OnI
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
 
-        mAdapter = new AppListAdapter();
-        mAdapter.setOnItemLongClickListener(this);
-        getDraggableView().setAdapter(mAdapter);
+        mAppListAdapter = new AppListAdapter();
+        mAppListAdapter.setOnItemLongClickListener(this);
+        getDraggableView().setAdapter(mAppListAdapter);
 
         mAppListCallback = createAppListCallback();
         getLoaderManager().initLoader(0, null, mAppListCallback);
@@ -77,7 +77,7 @@ public class LinearLayoutFragment extends Fragment implements AppListAdapter.OnI
     }
 
     private void onChanged(List<App> newApps) {
-        mAdapter.changeApps(newApps);
+        mAppListAdapter.changeApps(newApps);
     }
 
     private LoaderManager.LoaderCallbacks<List<App>> createAppListCallback() {
