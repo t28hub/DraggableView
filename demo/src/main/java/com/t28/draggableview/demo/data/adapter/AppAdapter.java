@@ -16,6 +16,7 @@ import java.util.List;
 
 public class AppAdapter extends DraggableView.Adapter<AppAdapter.ItemViewHolder> {
     private final List<App> mApps;
+    private OnItemLongClickListener mItemLongClickListener;
 
     public AppAdapter() {
         super();
@@ -58,20 +59,39 @@ public class AppAdapter extends DraggableView.Adapter<AppAdapter.ItemViewHolder>
         notifyDataSetChanged();
     }
 
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        mItemLongClickListener = listener;
+    }
+
     private App getItem(int position) {
         return mApps.get(position);
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+    public interface OnItemLongClickListener {
+        void onItemLongClick(int position, View view);
+    }
+
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         private final ImageView mIconView;
         private final TextView mPrimaryTextView;
         private final TextView mSecondaryTextView;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnLongClickListener(this);
             mIconView = (ImageView) itemView.findViewById(R.id.linear_layout_item_icon);
             mPrimaryTextView = (TextView) itemView.findViewById(R.id.linear_layout_item_primary_text);
             mSecondaryTextView = (TextView) itemView.findViewById(R.id.linear_layout_item_secondary_text);
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            if (mItemLongClickListener == null) {
+                return false;
+            }
+
+            mItemLongClickListener.onItemLongClick(getAdapterPosition(), itemView);
+            return true;
         }
 
         public void bind(App app) {
