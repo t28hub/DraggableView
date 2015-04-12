@@ -278,8 +278,8 @@ public class DraggableView extends RecyclerView {
 
     private boolean scrollIfNeeded() {
         final Rect shadowBounds = mShadowBuilder.getBounds();
-        final int scrollY = computeScrollY(shadowBounds);
         final int scrollX = computeScrollX(shadowBounds);
+        final int scrollY = computeScrollY(shadowBounds);
         if (scrollX == NO_DISTANCE && scrollY == NO_DISTANCE) {
             return false;
         }
