@@ -26,7 +26,7 @@ public class AppListAdapter extends DraggableView.Adapter<AppListAdapter.ItemVie
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        final View itemView = inflater.inflate(R.layout.linear_layout_item, parent, false);
+        final View itemView = inflater.inflate(R.layout.layout_list_item, parent, false);
         return new ItemViewHolder(itemView);
     }
 
