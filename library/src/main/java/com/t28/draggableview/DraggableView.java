@@ -19,10 +19,10 @@ public class DraggableView extends RecyclerView {
     private static final int INITIAL_POINTER_INDEX = 0;
     private static final int SCROLL_DETECTION_INTERVAL = 50;
     private static final int NO_DISTANCE = 0;
-    private static final int LEFTWARD_DISTANCE = -1;
-    private static final int RIGHTWARD_DISTANCE = 1;
-    private static final int UPPER_DISTANCE = -1;
-    private static final int LOWER_DISTANCE = 1;
+    private static final int LEFTWARD_DISTANCE = -4;
+    private static final int RIGHTWARD_DISTANCE = 4;
+    private static final int UPPER_DISTANCE = -4;
+    private static final int LOWER_DISTANCE = 4;
 
     private final ItemAnimatorFinishedListener mMoveFinishedListener = new ItemAnimatorFinishedListener() {
         @Override
