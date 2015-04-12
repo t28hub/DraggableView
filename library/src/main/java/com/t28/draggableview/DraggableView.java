@@ -290,14 +290,14 @@ public class DraggableView extends RecyclerView {
     }
 
     private int computeScrollX(Rect shadowBounds) {
-        final int shadowWidth = shadowBounds.width();
-        final int thresholdLeft = getLeft() + shadowWidth;
-        if (canScrollHorizontally(LEFTWARD_DISTANCE) && mTouchMovePoint.x < thresholdLeft) {
+        final int threshold = (int) (shadowBounds.width() * THRESHOLD_COEFFICIENT);
+        final boolean scrollLeftNeed = mTouchMovePoint.x < (getLeft() + threshold);
+        if (canScrollHorizontally(LEFTWARD_DISTANCE) && scrollLeftNeed) {
             return LEFTWARD_DISTANCE;
         }
 
-        final int thresholdRight = getRight() - shadowWidth;
-        if (canScrollHorizontally(RIGHTWARD_DISTANCE) && thresholdRight < mTouchMovePoint.x) {
+        final boolean scrollRightNeed = mTouchMovePoint.x > (getRight() - threshold);
+        if (canScrollHorizontally(RIGHTWARD_DISTANCE) && scrollRightNeed) {
             return RIGHTWARD_DISTANCE;
         }
         return NO_DISTANCE;
