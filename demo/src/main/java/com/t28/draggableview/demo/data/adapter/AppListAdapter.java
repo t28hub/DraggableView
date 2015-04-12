@@ -48,7 +48,20 @@ public class AppListAdapter extends DraggableView.Adapter<AppListAdapter.ItemVie
 
     @Override
     public boolean move(int position1, int position2) {
-        return false;
+        if (!isValidPosition(position1)) {
+            throw new IndexOutOfBoundsException("'position1' is invalid:" + position1);
+        }
+        if (!isValidPosition(position2)) {
+            throw new IndexOutOfBoundsException("'position2' is invalid:" + position2);
+        }
+
+        if (position1 == position2) {
+            return false;
+        }
+
+        mApps.add(position2, mApps.remove(position1));
+        notifyItemMoved(position1, position2);
+        return true;
     }
 
     public void changeApps(List<App> apps) {
@@ -65,6 +78,10 @@ public class AppListAdapter extends DraggableView.Adapter<AppListAdapter.ItemVie
 
     private App getItem(int position) {
         return mApps.get(position);
+    }
+
+    private boolean isValidPosition(int position) {
+        return position >= 0 && position < mApps.size();
     }
 
     public interface OnItemLongClickListener {
