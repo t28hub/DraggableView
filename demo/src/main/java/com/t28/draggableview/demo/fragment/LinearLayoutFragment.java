@@ -19,7 +19,6 @@ import com.t28.draggableview.demo.data.model.App;
 import java.util.List;
 
 public class LinearLayoutFragment extends Fragment {
-    private DraggableView mDraggableView;
     private AppAdapter mAdapter;
     private LoaderManager.LoaderCallbacks<List<App>> mAppListCallback;
 
