@@ -1,10 +1,11 @@
 package com.t28.draggableview.demo.data.model;
 
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 
 public class Bookmark {
     private final String mTitle;
-    private final String mUrl;
+    private final Uri mUrl;
     private final Drawable mFavicon;
     private final Drawable mThumbnail;
 
@@ -19,7 +20,7 @@ public class Bookmark {
         return mTitle;
     }
 
-    public String getUrl() {
+    public Uri getUrl() {
         return mUrl;
     }
 
@@ -33,7 +34,7 @@ public class Bookmark {
 
     public static final class Builder {
         private String mTitle;
-        private String mUrl;
+        private Uri mUrl;
         private Drawable mFavicon;
         private Drawable mThumbnail;
 
@@ -45,7 +46,7 @@ public class Bookmark {
             return this;
         }
 
-        public Builder setUrl(String url) {
+        public Builder setUrl(Uri url) {
             mUrl = url;
             return this;
         }

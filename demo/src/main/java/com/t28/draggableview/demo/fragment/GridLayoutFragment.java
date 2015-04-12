@@ -1,8 +1,11 @@
 package com.t28.draggableview.demo.fragment;
 
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.Browser;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,24 @@ public class GridLayoutFragment extends Fragment {
         view.setHasFixedSize(true);
         view.setLayoutManager(new GridLayoutManager(getActivity(), SPAN_COUNT));
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String[] projection = new String[]{
+                Browser.BookmarkColumns.BOOKMARK,
+                Browser.BookmarkColumns.CREATED,
+                Browser.BookmarkColumns.DATE,
+                Browser.BookmarkColumns.FAVICON,
+                Browser.BookmarkColumns.TITLE,
+                Browser.BookmarkColumns.URL,
+                "thumbnail"
+        };
+        Cursor cursor =
+                getActivity().getContentResolver().query(
+                        Browser.BOOKMARKS_URI, projection, null, null, null);
+        Log.d("TAG", "cursor:" + cursor.getCount());
     }
 
     public static final class Factory implements FragmentAdapter.FragmentFactory {
