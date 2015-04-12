@@ -2,6 +2,7 @@ package com.t28.draggableview.demo.data.adapter;
 
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Browser;
@@ -22,6 +23,7 @@ public class BookmarkAdapter extends DraggableView.Adapter<BookmarkAdapter.GridV
     private Cursor mCursor;
 
     public BookmarkAdapter() {
+        mCursor = new MatrixCursor(new String[0]);
     }
 
     @Override
@@ -33,7 +35,7 @@ public class BookmarkAdapter extends DraggableView.Adapter<BookmarkAdapter.GridV
 
     @Override
     public void onBindViewHolder(GridViewHolder holder, int position) {
-        if (!mCursor.move(position)) {
+        if (!mCursor.moveToPosition(position)) {
             throw new IllegalStateException("Failed to move position:" + position);
         }
 
@@ -62,6 +64,12 @@ public class BookmarkAdapter extends DraggableView.Adapter<BookmarkAdapter.GridV
         return false;
     }
 
+    public void changeCursor(Cursor cursor) {
+        mRowIdColumnIndex = cursor.getColumnIndexOrThrow(Browser.BookmarkColumns._ID);
+        mCursor = cursor;
+        notifyDataSetChanged();
+    }
+
     private String readTitle() {
         final int columnIndex = mCursor.getColumnIndexOrThrow(Browser.BookmarkColumns.TITLE);
         return mCursor.getString(columnIndex);
@@ -75,12 +83,18 @@ public class BookmarkAdapter extends DraggableView.Adapter<BookmarkAdapter.GridV
     private Drawable readFavicon(Resources resources) {
         final int columnIndex = mCursor.getColumnIndexOrThrow(Browser.BookmarkColumns.FAVICON);
         final byte[] data = mCursor.getBlob(columnIndex);
+        if (data == null || data.length == 0) {
+            return null;
+        }
         return DrawableFactory.decodeByteArray(resources, data);
     }
 
     private Drawable readThumbnail(Resources resources) {
         final int columnIndex = mCursor.getColumnIndexOrThrow("thumbnail");
         final byte[] data = mCursor.getBlob(columnIndex);
+        if (data == null || data.length == 0) {
+            return null;
+        }
         return DrawableFactory.decodeByteArray(resources, data);
     }
 

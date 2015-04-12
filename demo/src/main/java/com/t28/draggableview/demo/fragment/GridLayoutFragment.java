@@ -12,10 +12,13 @@ import android.view.ViewGroup;
 
 import com.t28.draggableview.DraggableView;
 import com.t28.draggableview.demo.R;
+import com.t28.draggableview.demo.data.adapter.BookmarkAdapter;
 import com.t28.draggableview.demo.data.adapter.FragmentAdapter;
 
 public class GridLayoutFragment extends Fragment {
     private static final int SPAN_COUNT = 2;
+
+    private BookmarkAdapter mBookmarkAdapter;
 
     public GridLayoutFragment() {
     }
@@ -29,12 +32,18 @@ public class GridLayoutFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mBookmarkAdapter = new BookmarkAdapter();
+        getDraggableView().setAdapter(mBookmarkAdapter);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        // TODO: CursorLoader化
         String[] projection = new String[]{
-                Browser.BookmarkColumns.BOOKMARK,
-                Browser.BookmarkColumns.CREATED,
-                Browser.BookmarkColumns.DATE,
+                Browser.BookmarkColumns._ID,
                 Browser.BookmarkColumns.FAVICON,
                 Browser.BookmarkColumns.TITLE,
                 Browser.BookmarkColumns.URL,
@@ -43,7 +52,12 @@ public class GridLayoutFragment extends Fragment {
         Cursor cursor =
                 getActivity().getContentResolver().query(
                         Browser.BOOKMARKS_URI, projection, null, null, null);
+        mBookmarkAdapter.changeCursor(cursor);
         Log.d("TAG", "cursor:" + cursor.getCount());
+    }
+
+    private DraggableView getDraggableView() {
+        return (DraggableView) getView();
     }
 
     public static final class Factory implements FragmentAdapter.FragmentFactory {
