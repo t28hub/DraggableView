@@ -4,9 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.t28.draggableview.demo.view.SlidingTabLayout
+        android:id="@+id/main_sliding_tab"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/main_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"/>
 
 </FrameLayout>

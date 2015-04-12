@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.t28.draggableview.demo.R;
 import com.t28.draggableview.demo.data.adapter.FragmentAdapter;
+import com.t28.draggableview.demo.view.SlidingTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +24,12 @@ public class MainFragment extends Fragment {
         adapter.addAll(createFactories());
 
         final View view = inflater.inflate(R.layout.fragment_main, container, false);
+
         final ViewPager pager = (ViewPager) view.findViewById(R.id.main_view_pager);
         pager.setAdapter(adapter);
+
+        final SlidingTabLayout slidingTab = (SlidingTabLayout) view.findViewById(R.id.main_sliding_tab);
+        slidingTab.setViewPager(pager);
         return view;
     }
 
