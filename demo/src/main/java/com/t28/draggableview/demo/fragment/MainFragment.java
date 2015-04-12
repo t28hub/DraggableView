@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.t28.draggableview.demo.R;
-import com.t28.draggableview.demo.adapter.FragmentAdapter;
+import com.t28.draggableview.demo.data.adapter.FragmentAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

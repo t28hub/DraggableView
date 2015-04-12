@@ -1,2 +1,9 @@
 <resources>
+    <dimen name="list_item_height">72dp</dimen>
+    <dimen name="list_item_vertical_padding">8dp</dimen>
+    <dimen name="list_item_horizontal_padding">16dp</dimen>
+    <dimen name="list_item_icon_width">40dp</dimen>
+    <dimen name="list_item_icon_height">40dp</dimen>
+    <dimen name="list_item_primary_text">16sp</dimen>
+    <dimen name="list_item_secondary_text">14sp</dimen>
 </resources>

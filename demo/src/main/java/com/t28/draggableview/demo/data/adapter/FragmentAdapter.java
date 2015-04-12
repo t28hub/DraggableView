@@ -1,4 +1,4 @@
-package com.t28.draggableview.demo.adapter;
+package com.t28.draggableview.demo.data.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

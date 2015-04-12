@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.t28.draggableview.DraggableView;
 import com.t28.draggableview.demo.R;
-import com.t28.draggableview.demo.adapter.FragmentAdapter;
+import com.t28.draggableview.demo.data.adapter.FragmentAdapter;
 
 public class GridLayoutFragment extends Fragment {
     private static final int SPAN_COUNT = 2;
