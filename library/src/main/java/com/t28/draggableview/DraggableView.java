@@ -23,6 +23,7 @@ public class DraggableView extends RecyclerView {
     private static final int RIGHTWARD_DISTANCE = 4;
     private static final int UPPER_DISTANCE = -4;
     private static final int LOWER_DISTANCE = 4;
+    private static final float THRESHOLD_COEFFICIENT = 0.5f;
 
     private final ItemAnimatorFinishedListener mMoveFinishedListener = new ItemAnimatorFinishedListener() {
         @Override
@@ -303,14 +304,14 @@ public class DraggableView extends RecyclerView {
     }
 
     private int computeScrollY(Rect shadowBounds) {
-        final int shadowHeight = shadowBounds.height();
-        final int thresholdTop = getTop() + shadowHeight;
-        if (canScrollVertically(UPPER_DISTANCE) && mTouchMovePoint.y < thresholdTop) {
+        final int threshold = (int) (shadowBounds.height() * THRESHOLD_COEFFICIENT);
+        final boolean scrollUpNeed = mTouchMovePoint.y < (getTop() + threshold);
+        if (canScrollVertically(UPPER_DISTANCE) && scrollUpNeed) {
             return UPPER_DISTANCE;
         }
 
-        final int thresholdBottom = getBottom() - shadowHeight;
-        if (canScrollVertically(LOWER_DISTANCE) && thresholdBottom < mTouchMovePoint.y) {
+        final boolean scrollDownNeed = mTouchMovePoint.y > (getBottom() - threshold);
+        if (canScrollVertically(LOWER_DISTANCE) && scrollDownNeed) {
             return LOWER_DISTANCE;
         }
         return NO_DISTANCE;
