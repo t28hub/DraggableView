@@ -6,4 +6,6 @@
     <dimen name="list_item_icon_height">40dp</dimen>
     <dimen name="list_item_primary_text">16sp</dimen>
     <dimen name="list_item_secondary_text">14sp</dimen>
+    <dimen name="list_item_text_horizontal_margin">56dp</dimen>
+    <dimen name="list_item_text_vertical_padding">8dp</dimen>
 </resources>

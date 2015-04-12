@@ -20,6 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
+        android:layout_marginLeft="@dimen/list_item_text_horizontal_margin"
+        android:layout_marginRight="@dimen/list_item_text_horizontal_margin"
+        android:paddingTop="@dimen/list_item_text_vertical_padding"
+        android:paddingBottom="@dimen/list_item_text_vertical_padding"
         android:textSize="@dimen/list_item_primary_text"
         android:textColor="@color/primary_text_default_material_light"
         android:singleLine="true"/>
@@ -29,6 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_marginLeft="@dimen/list_item_text_horizontal_margin"
+        android:layout_marginRight="@dimen/list_item_text_horizontal_margin"
+        android:paddingTop="@dimen/list_item_text_vertical_padding"
+        android:paddingBottom="@dimen/list_item_text_vertical_padding"
         android:textSize="@dimen/list_item_secondary_text"
         android:textColor="@color/secondary_text_default_material_light"
         android:singleLine="true"/>
