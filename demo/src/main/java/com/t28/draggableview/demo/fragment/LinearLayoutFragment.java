@@ -18,7 +18,7 @@ import com.t28.draggableview.demo.data.model.App;
 
 import java.util.List;
 
-public class LinearLayoutFragment extends Fragment {
+public class LinearLayoutFragment extends Fragment implements AppAdapter.OnItemLongClickListener {
     private AppAdapter mAdapter;
     private LoaderManager.LoaderCallbacks<List<App>> mAppListCallback;
 
@@ -37,6 +37,7 @@ public class LinearLayoutFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mAdapter = new AppAdapter();
+        mAdapter.setOnItemLongClickListener(this);
         getDraggableView().setAdapter(mAdapter);
 
         mAppListCallback = createAppListCallback();
@@ -47,6 +48,16 @@ public class LinearLayoutFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         getLoaderManager().destroyLoader(0);
+    }
+
+    @Override
+    public void onItemLongClick(int position, View view) {
+        final DraggableView draggableView = getDraggableView();
+        if (draggableView.isDragging()) {
+            return;
+        }
+
+        draggableView.startDrag(view, new DraggableView.ShadowBuilder(view));
     }
 
     private DraggableView getDraggableView() {
