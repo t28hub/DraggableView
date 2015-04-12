@@ -20,17 +20,20 @@ public class MainFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_main, container, false);
+        setUpViews(view);
+        return view;
+    }
+
+    private void setUpViews(View view) {
         final FragmentAdapter adapter = new FragmentAdapter(getChildFragmentManager());
         adapter.addAll(createFactories());
-
-        final View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         final ViewPager pager = (ViewPager) view.findViewById(R.id.main_view_pager);
         pager.setAdapter(adapter);
 
         final SlidingTabLayout slidingTab = (SlidingTabLayout) view.findViewById(R.id.main_sliding_tab);
         slidingTab.setViewPager(pager);
-        return view;
     }
 
     private List<FragmentAdapter.FragmentFactory> createFactories() {
