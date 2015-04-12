@@ -31,6 +31,7 @@ public class MainFragment extends Fragment {
     private List<FragmentAdapter.FragmentFactory> createFactories() {
         final List<FragmentAdapter.FragmentFactory> factories = new ArrayList<>();
         factories.add(new LinearLayoutFragment.Factory(getString(R.string.title_linear)));
+        factories.add(new GridLayoutFragment.Factory(getString(R.string.title_grid)));
         return factories;
     }
 }
