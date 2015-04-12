@@ -304,7 +304,7 @@ public class DraggableView extends RecyclerView {
 
     private int computeScrollY(Rect shadowBounds) {
         final int shadowHeight = shadowBounds.height();
-        final int thresholdTop = getTop() - shadowHeight;
+        final int thresholdTop = getTop() + shadowHeight;
         if (canScrollVertically(UPPER_DISTANCE) && mTouchMovePoint.y < thresholdTop) {
             return UPPER_DISTANCE;
         }
