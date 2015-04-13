@@ -14,7 +14,7 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
 
     public MovableCursorAdapter(Cursor cursor) {
         if (cursor == null) {
-            mCursor = new NullCurosr();
+            mCursor = new NullCursor();
         } else {
             mCursor = cursor;
         }
