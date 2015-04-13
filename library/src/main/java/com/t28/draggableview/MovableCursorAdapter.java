@@ -24,6 +24,10 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
 
     @Override
     public long getItemId(int position) {
+        if (mRowIdColumn < 0) {
+            return DraggableView.NO_ID;
+        }
+
         if (mCursor.moveToPosition(position)) {
             return DraggableView.NO_ID;
         }
