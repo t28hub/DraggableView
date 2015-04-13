@@ -66,8 +66,18 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
     }
 
     private void moveLower(int position1, int position2) {
+        for (int position = position1; position < position2; position++) {
+            swap(position, position + 1);
+        }
     }
 
     private void moveUpper(int position1, int position2) {
+        for (int position = position1; position > position2; position--) {
+            swap(position, position - 1);
+        }
+    }
+
+    private void swap(int position1, int position2) {
+
     }
 }
