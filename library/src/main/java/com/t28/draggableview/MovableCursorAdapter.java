@@ -29,7 +29,7 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mCursor.getCount();
     }
 
     @Override
