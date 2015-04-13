@@ -65,6 +65,15 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
         return false;
     }
 
+    public void changeCursor(Cursor newCursor) {
+        // TODO
+    }
+
+    public Cursor swapCursor(Cursor newCursor) {
+        // TODO
+        return mCursor;
+    }
+
     protected boolean isValidPosition(int position) {
         return position >= 0 && position < mCursor.getCount();
     }
