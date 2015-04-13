@@ -27,32 +27,32 @@ class NullCurosr implements Cursor {
 
     @Override
     public boolean move(int offset) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean moveToPosition(int position) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean moveToFirst() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean moveToLast() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean moveToNext() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean moveToPrevious() {
-        return false;
+        return true;
     }
 
     @Override
