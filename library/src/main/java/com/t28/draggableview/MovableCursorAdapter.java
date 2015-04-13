@@ -3,9 +3,8 @@ package com.t28.draggableview;
 import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.support.v7.widget.RecyclerView;
-import android.view.ViewGroup;
 
-public class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> extends DraggableView.Adapter<VH> {
+public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> extends DraggableView.Adapter<VH> {
     private int mRowIdColumn;
     private Cursor mCursor;
 
@@ -21,16 +20,6 @@ public class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> extends Dr
         }
         mRowIdColumn = mCursor.getInt(mCursor.getColumnIndex(BaseColumns._ID));
         setHasStableIds(true);
-    }
-
-    @Override
-    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
-    }
-
-    @Override
-    public void onBindViewHolder(VH holder, int position) {
-
     }
 
     @Override
