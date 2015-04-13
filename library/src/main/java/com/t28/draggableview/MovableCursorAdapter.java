@@ -3,8 +3,11 @@ package com.t28.draggableview;
 import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseIntArray;
 
 public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> extends DraggableView.Adapter<VH> {
+    private final SparseIntArray mPositionMap;
+
     private int mRowIdColumn;
     private Cursor mCursor;
 
@@ -13,6 +16,7 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
     }
 
     public MovableCursorAdapter(Cursor cursor) {
+        mPositionMap = new SparseIntArray();
         if (cursor == null) {
             mCursor = new NullCursor();
         } else {
@@ -78,6 +82,17 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
     }
 
     private void swap(int position1, int position2) {
+        final int cursorPosition1 = getCursorPosition(position1);
+        final int cursorPosition2 = getCursorPosition(position2);
+        setCursorPosition(position1, cursorPosition2);
+        setCursorPosition(position2, cursorPosition1);
+    }
 
+    private int getCursorPosition(int position) {
+        return mPositionMap.get(position, position);
+    }
+
+    private void setCursorPosition(int position, int cursorPosition) {
+        mPositionMap.append(position, cursorPosition);
     }
 }
