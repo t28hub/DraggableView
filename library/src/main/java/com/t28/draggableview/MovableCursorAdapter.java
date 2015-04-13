@@ -69,6 +69,14 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
         return position >= 0 && position < mCursor.getCount();
     }
 
+    protected int getCursorPosition(int position) {
+        return mPositionMap.get(position, position);
+    }
+
+    protected void setCursorPosition(int position, int cursorPosition) {
+        mPositionMap.append(position, cursorPosition);
+    }
+
     private void moveLower(int position1, int position2) {
         for (int position = position1; position < position2; position++) {
             swap(position, position + 1);
@@ -86,13 +94,5 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
         final int cursorPosition2 = getCursorPosition(position2);
         setCursorPosition(position1, cursorPosition2);
         setCursorPosition(position2, cursorPosition1);
-    }
-
-    private int getCursorPosition(int position) {
-        return mPositionMap.get(position, position);
-    }
-
-    private void setCursorPosition(int position, int cursorPosition) {
-        mPositionMap.append(position, cursorPosition);
     }
 }
