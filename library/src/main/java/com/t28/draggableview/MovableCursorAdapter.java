@@ -39,6 +39,18 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
     }
 
     @Override
+    public void onBindViewHolder(VH holder, int position) {
+        if (!mIsDataValid) {
+            throw new IllegalStateException("Invalid cursor:" + mCursor);
+        }
+
+        if (!mCursor.moveToPosition(position)) {
+            throw new IllegalStateException("Cannot move to position:" + position);
+        }
+        onBindViewHolder(holder, mCursor);
+    }
+
+    @Override
     public long getItemId(int position) {
         if (!mIsDataValid) {
             return DraggableView.NO_ID;
@@ -114,6 +126,8 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
         notifyDataSetChanged();
         return oldCursor;
     }
+
+    protected abstract void onBindViewHolder(VH holder, Cursor cursor);
 
     protected void onContentChanged() {
     }
