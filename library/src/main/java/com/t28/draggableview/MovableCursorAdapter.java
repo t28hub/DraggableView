@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseIntArray;
 
 public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> extends DraggableView.Adapter<VH> {
+    private static final int NO_ITEM_COUNT = 0;
+
     private final SparseIntArray mPositionMap;
     private final ContentObserver mContentObserver;
     private final DataSetObserver mDataSetObserver;
@@ -38,6 +40,10 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
 
     @Override
     public long getItemId(int position) {
+        if (!mIsDataValid) {
+            return DraggableView.NO_ID;
+        }
+
         if (mRowIdColumn < 0) {
             return DraggableView.NO_ID;
         }
@@ -50,6 +56,9 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
 
     @Override
     public int getItemCount() {
+        if (!mIsDataValid) {
+            return NO_ITEM_COUNT;
+        }
         return mCursor.getCount();
     }
 
