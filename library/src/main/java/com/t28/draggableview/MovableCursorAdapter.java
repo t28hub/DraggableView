@@ -100,6 +100,8 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
 
         mRowIdColumn = newCursor.getColumnIndexOrThrow(BaseColumns._ID);
         mCursor = newCursor;
+        mPositionMap.clear();
+
         notifyDataSetChanged();
         return oldCursor;
     }
