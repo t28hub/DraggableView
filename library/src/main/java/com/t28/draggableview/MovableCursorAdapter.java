@@ -66,7 +66,10 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
     }
 
     public void changeCursor(Cursor newCursor) {
-        // TODO
+        final Cursor oldCursor = swapCursor(newCursor);
+        if (oldCursor != null) {
+            oldCursor.close();
+        }
     }
 
     public Cursor swapCursor(Cursor newCursor) {
