@@ -88,17 +88,15 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
             return null;
         }
 
-        // TODO
-        oldCursor.unregisterContentObserver(null);
-        oldCursor.unregisterDataSetObserver(null);
+        oldCursor.unregisterContentObserver(mContentObserver);
+        oldCursor.unregisterDataSetObserver(mDataSetObserver);
 
         if (newCursor == null) {
             newCursor = new NullCursor();
         }
 
-        // TODO
-        newCursor.registerContentObserver(null);
-        newCursor.registerDataSetObserver(null);
+        newCursor.registerContentObserver(mContentObserver);
+        newCursor.registerDataSetObserver(mDataSetObserver);
 
         mRowIdColumn = newCursor.getColumnIndexOrThrow(BaseColumns._ID);
         mCursor = newCursor;
