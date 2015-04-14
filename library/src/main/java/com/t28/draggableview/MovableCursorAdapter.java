@@ -73,8 +73,26 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
     }
 
     public Cursor swapCursor(Cursor newCursor) {
+        final Cursor oldCursor = mCursor;
+        if (oldCursor.equals(newCursor)) {
+            return null;
+        }
+
         // TODO
-        return mCursor;
+        oldCursor.unregisterContentObserver(null);
+        oldCursor.unregisterDataSetObserver(null);
+
+        if (newCursor == null) {
+            newCursor = new NullCursor();
+        }
+
+        // TODO
+        newCursor.registerContentObserver(null);
+        newCursor.registerDataSetObserver(null);
+
+        mRowIdColumn = newCursor.getColumnIndexOrThrow(BaseColumns._ID);
+        mCursor = newCursor;
+        return oldCursor;
     }
 
     protected boolean isValidPosition(int position) {
