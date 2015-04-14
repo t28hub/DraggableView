@@ -11,6 +11,7 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
     private int mRowIdColumn;
     private Cursor mCursor;
 
+
     public MovableCursorAdapter() {
         this(null);
     }
@@ -92,6 +93,7 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
 
         mRowIdColumn = newCursor.getColumnIndexOrThrow(BaseColumns._ID);
         mCursor = newCursor;
+        notifyDataSetChanged();
         return oldCursor;
     }
 
