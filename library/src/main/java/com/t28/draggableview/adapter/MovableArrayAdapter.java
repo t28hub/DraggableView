@@ -70,6 +70,15 @@ public abstract class MovableArrayAdapter<T, VH extends RecyclerView.ViewHolder>
         notifyDataSetChanged();
     }
 
+    public void swapItems(List<T> items) {
+        mItems.clear();
+        if (items == null || items.size() == 0) {
+            return;
+        }
+        mItems.addAll(items);
+        notifyDataSetChanged();
+    }
+
     public void remove(T item) {
         final int position = mItems.indexOf(item);
         if (position < 0) {
