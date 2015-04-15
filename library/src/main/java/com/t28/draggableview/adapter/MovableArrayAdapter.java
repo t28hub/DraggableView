@@ -62,10 +62,6 @@ public abstract class MovableArrayAdapter<T, VH extends RecyclerView.ViewHolder>
     }
 
     public void addAll(List<T> items) {
-        mItems.clear();
-        if (items == null || items.size() == 0) {
-            return;
-        }
         mItems.addAll(items);
         notifyDataSetChanged();
     }
