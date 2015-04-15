@@ -11,11 +11,11 @@ import android.os.Bundle;
 /**
  * {@link Cursor}のNullObject
  */
-class NullCursor implements Cursor {
+public class NullCursor implements Cursor {
     private static final String[] EMPTY_COLUMNS = new String[0];
     private static final byte[] EMPTY_BYTES = new byte[0];
 
-    NullCursor() {
+    public NullCursor() {
     }
 
     @Override

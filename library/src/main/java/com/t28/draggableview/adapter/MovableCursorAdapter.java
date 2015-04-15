@@ -1,4 +1,4 @@
-package com.t28.draggableview;
+package com.t28.draggableview.adapter;
 
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -8,6 +8,9 @@ import android.os.Handler;
 import android.provider.BaseColumns;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseIntArray;
+
+import com.t28.draggableview.DraggableView;
+import com.t28.draggableview.NullCursor;
 
 public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> extends DraggableView.Adapter<VH> {
     private static final int NO_ITEM_COUNT = 0;
