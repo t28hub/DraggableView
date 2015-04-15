@@ -65,6 +65,7 @@ public class BookmarkAdapter extends MovableCursorAdapter<BookmarkAdapter.GridVi
 
     private Drawable readThumbnail(Resources resources) {
         final Cursor cursor = getCursor();
+        // TODO: thumbnailの定数化
         final int columnIndex = cursor.getColumnIndexOrThrow("thumbnail");
         final byte[] data = cursor.getBlob(columnIndex);
         if (data == null || data.length == 0) {
