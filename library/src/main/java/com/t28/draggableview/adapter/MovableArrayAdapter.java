@@ -34,16 +34,20 @@ public class MovableArrayAdapter<T, VH extends RecyclerView.ViewHolder> extends 
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return getItem(position).hashCode();
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mItems.size();
     }
 
     @Override
     public boolean move(int position1, int position2) {
         return false;
+    }
+
+    public T getItem(int position) {
+        return mItems.get(position);
     }
 }
