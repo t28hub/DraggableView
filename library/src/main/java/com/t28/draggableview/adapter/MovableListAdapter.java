@@ -17,7 +17,7 @@ public class MovableListAdapter<T, VH extends RecyclerView.ViewHolder> extends D
 
     public MovableListAdapter(List<T> items) {
         mItems = new ArrayList<>();
-        if (items != null || items.size() != 0) {
+        if (items != null && items.size() != 0) {
             mItems.addAll(items);
         }
     }
