@@ -53,6 +53,19 @@ public abstract class MovableArrayAdapter<T, VH extends RecyclerView.ViewHolder>
         return mItems.get(position);
     }
 
+    public void remove(T item) {
+        final int position = mItems.indexOf(item);
+        if (position < 0) {
+            throw new IllegalArgumentException("Item does not found:" + item);
+        }
+        notifyItemRemoved(position);
+    }
+
+    public void clear() {
+        mItems.clear();
+        notifyDataSetChanged();
+    }
+
     private boolean isValidPosition(int position) {
         return position >= 0 && position < mItems.size();
     }
