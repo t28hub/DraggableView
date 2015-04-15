@@ -14,16 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.t28.draggableview.DraggableView;
+import com.t28.draggableview.adapter.MovableCursorAdapter;
 import com.t28.draggableview.demo.R;
 import com.t28.draggableview.demo.data.model.Bookmark;
 import com.t28.draggableview.demo.tool.DrawableFactory;
 
-public class BookmarkAdapter extends DraggableView.Adapter<BookmarkAdapter.GridViewHolder> {
-    private int mRowIdColumnIndex;
-    private Cursor mCursor;
-
+public class BookmarkAdapter extends MovableCursorAdapter<BookmarkAdapter.GridViewHolder> {
     public BookmarkAdapter() {
-        mCursor = new MatrixCursor(new String[0]);
+        super();
     }
 
     @Override
@@ -34,11 +32,7 @@ public class BookmarkAdapter extends DraggableView.Adapter<BookmarkAdapter.GridV
     }
 
     @Override
-    public void onBindViewHolder(GridViewHolder holder, int position) {
-        if (!mCursor.moveToPosition(position)) {
-            throw new IllegalStateException("Failed to move position:" + position);
-        }
-
+    protected void onBindViewHolder(GridViewHolder holder, Cursor cursor) {
         final Resources resources = holder.itemView.getResources();
         final Bookmark.Builder builder = new Bookmark.Builder()
                 .setTitle(readTitle())
@@ -47,35 +41,6 @@ public class BookmarkAdapter extends DraggableView.Adapter<BookmarkAdapter.GridV
                 .setThumbnail(readThumbnail(resources));
         final Bookmark bookmark = builder.build();
         holder.bind(bookmark);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return mCursor.getLong(mRowIdColumnIndex);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mCursor.getCount();
-    }
-
-    @Override
-    public boolean move(int position1, int position2) {
-        return false;
-    }
-
-    public void changeCursor(Cursor cursor) {
-        mRowIdColumnIndex = cursor.getColumnIndexOrThrow(Browser.BookmarkColumns._ID);
-        mCursor = cursor;
-        notifyDataSetChanged();
-    }
-
-    public Cursor swapCursor(Cursor newCursor) {
-        final Cursor oldCursor = mCursor;
-        if (oldCursor.equals(newCursor)) {
-            return null;
-        }
-        return null;
     }
 
     private String readTitle() {
