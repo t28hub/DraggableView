@@ -7,21 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.t28.draggableview.DraggableView;
+import com.t28.draggableview.adapter.MovableArrayAdapter;
 import com.t28.draggableview.demo.R;
 import com.t28.draggableview.demo.data.model.App;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class AppListAdapter extends DraggableView.Adapter<AppListAdapter.ItemViewHolder> {
-    private final List<App> mApps;
+public class AppListAdapter extends MovableArrayAdapter<App, AppListAdapter.ItemViewHolder> {
     private OnItemLongClickListener mItemLongClickListener;
-
-    public AppListAdapter() {
-        super();
-        mApps = new ArrayList<>();
-    }
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,52 +27,8 @@ public class AppListAdapter extends DraggableView.Adapter<AppListAdapter.ItemVie
         holder.bind(app);
     }
 
-    @Override
-    public long getItemId(int position) {
-        return getItem(position).hashCode();
-    }
-
-    @Override
-    public int getItemCount() {
-        return mApps.size();
-    }
-
-    @Override
-    public boolean move(int position1, int position2) {
-        if (!isValidPosition(position1)) {
-            throw new IndexOutOfBoundsException("'position1' is invalid:" + position1);
-        }
-        if (!isValidPosition(position2)) {
-            throw new IndexOutOfBoundsException("'position2' is invalid:" + position2);
-        }
-
-        if (position1 == position2) {
-            return false;
-        }
-
-        mApps.add(position2, mApps.remove(position1));
-        notifyItemMoved(position1, position2);
-        return true;
-    }
-
-    public void changeApps(List<App> apps) {
-        mApps.clear();
-        if (apps != null && apps.size() != 0) {
-            mApps.addAll(apps);
-        }
-        notifyDataSetChanged();
-    }
-
     public void setOnItemLongClickListener(OnItemLongClickListener listener) {
         mItemLongClickListener = listener;
-    }
-
-    private App getItem(int position) {
-        return mApps.get(position);
-    }
-
-    private boolean isValidPosition(int position) {
-        return position >= 0 && position < mApps.size();
     }
 
     public interface OnItemLongClickListener {

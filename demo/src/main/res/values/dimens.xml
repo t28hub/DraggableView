@@ -7,4 +7,5 @@
     <dimen name="list_item_secondary_text">14sp</dimen>
     <dimen name="list_item_text_horizontal_margin">56dp</dimen>
     <dimen name="list_item_text_vertical_padding">8dp</dimen>
+    <dimen name="grid_item_image_height">120dp</dimen>
 </resources>

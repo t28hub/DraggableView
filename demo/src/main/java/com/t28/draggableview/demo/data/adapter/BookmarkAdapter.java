@@ -29,7 +29,7 @@ public class BookmarkAdapter extends DraggableView.Adapter<BookmarkAdapter.GridV
     @Override
     public GridViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        final View itemView = inflater.inflate(R.layout.layout_list_item, parent, false);
+        final View itemView = inflater.inflate(R.layout.layout_grid_item, parent, false);
         return new GridViewHolder(itemView);
     }
 
@@ -70,6 +70,14 @@ public class BookmarkAdapter extends DraggableView.Adapter<BookmarkAdapter.GridV
         notifyDataSetChanged();
     }
 
+    public Cursor swapCursor(Cursor newCursor) {
+        final Cursor oldCursor = mCursor;
+        if (oldCursor.equals(newCursor)) {
+            return null;
+        }
+        return null;
+    }
+
     private String readTitle() {
         final int columnIndex = mCursor.getColumnIndexOrThrow(Browser.BookmarkColumns.TITLE);
         return mCursor.getString(columnIndex);
@@ -99,19 +107,19 @@ public class BookmarkAdapter extends DraggableView.Adapter<BookmarkAdapter.GridV
     }
 
     public class GridViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView mIconView;
+        private final ImageView mImageView;
         private final TextView mPrimaryTextView;
         private final TextView mSecondaryTextView;
 
         public GridViewHolder(View itemView) {
             super(itemView);
-            mIconView = (ImageView) itemView.findViewById(R.id.linear_layout_item_icon);
-            mPrimaryTextView = (TextView) itemView.findViewById(R.id.linear_layout_item_primary_text);
-            mSecondaryTextView = (TextView) itemView.findViewById(R.id.linear_layout_item_secondary_text);
+            mImageView = (ImageView) itemView.findViewById(R.id.grid_item_image);
+            mPrimaryTextView = (TextView) itemView.findViewById(R.id.grid_item_primary_text);
+            mSecondaryTextView = (TextView) itemView.findViewById(R.id.grid_item_secondary_text);
         }
 
         public void bind(Bookmark bookmark) {
-            mIconView.setImageDrawable(bookmark.getThumbnail());
+            mImageView.setImageDrawable(bookmark.getThumbnail());
             mPrimaryTextView.setText(bookmark.getTitle());
             mSecondaryTextView.setText(bookmark.getUrl().toString());
         }
