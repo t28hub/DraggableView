@@ -74,6 +74,10 @@ public class BookmarkAdapter extends MovableCursorAdapter<BookmarkAdapter.GridIt
         return DrawableFactory.decodeByteArray(resources, data);
     }
 
+    public interface OnItemLongClickListener {
+        void onItemLongClick(int position, View view);
+    }
+
     public class GridItemViewHolder extends RecyclerView.ViewHolder {
         private final ImageView mImageView;
         private final TextView mPrimaryTextView;
