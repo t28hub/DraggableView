@@ -77,7 +77,7 @@ public class LinearLayoutFragment extends Fragment implements AppListAdapter.OnI
     }
 
     private void onChanged(List<App> newApps) {
-        mAppListAdapter.changeApps(newApps);
+        mAppListAdapter.swapItems(newApps);
     }
 
     private LoaderManager.LoaderCallbacks<List<App>> createAppListCallback() {
