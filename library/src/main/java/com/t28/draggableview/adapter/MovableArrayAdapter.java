@@ -8,14 +8,14 @@ import com.t28.draggableview.DraggableView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovableListAdapter<T, VH extends RecyclerView.ViewHolder> extends DraggableView.Adapter<VH> {
+public class MovableArrayAdapter<T, VH extends RecyclerView.ViewHolder> extends DraggableView.Adapter<VH> {
     private final List<T> mItems;
 
-    public MovableListAdapter() {
+    public MovableArrayAdapter() {
         this(null);
     }
 
-    public MovableListAdapter(List<T> items) {
+    public MovableArrayAdapter(List<T> items) {
         mItems = new ArrayList<>();
         if (items != null && items.size() != 0) {
             mItems.addAll(items);
