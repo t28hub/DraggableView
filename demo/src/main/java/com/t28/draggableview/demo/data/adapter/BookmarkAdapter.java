@@ -17,20 +17,20 @@ import com.t28.draggableview.demo.R;
 import com.t28.draggableview.demo.data.model.Bookmark;
 import com.t28.draggableview.demo.tool.DrawableFactory;
 
-public class BookmarkAdapter extends MovableCursorAdapter<BookmarkAdapter.GridViewHolder> {
+public class BookmarkAdapter extends MovableCursorAdapter<BookmarkAdapter.GridItemViewHolder> {
     public BookmarkAdapter() {
         super();
     }
 
     @Override
-    public GridViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public GridItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         final View itemView = inflater.inflate(R.layout.layout_grid_item, parent, false);
-        return new GridViewHolder(itemView);
+        return new GridItemViewHolder(itemView);
     }
 
     @Override
-    protected void onBindViewHolder(GridViewHolder holder, Cursor cursor) {
+    protected void onBindViewHolder(GridItemViewHolder holder, Cursor cursor) {
         final Resources resources = holder.itemView.getResources();
         final Bookmark.Builder builder = new Bookmark.Builder()
                 .setTitle(readTitle())
@@ -74,12 +74,12 @@ public class BookmarkAdapter extends MovableCursorAdapter<BookmarkAdapter.GridVi
         return DrawableFactory.decodeByteArray(resources, data);
     }
 
-    public class GridViewHolder extends RecyclerView.ViewHolder {
+    public class GridItemViewHolder extends RecyclerView.ViewHolder {
         private final ImageView mImageView;
         private final TextView mPrimaryTextView;
         private final TextView mSecondaryTextView;
 
-        public GridViewHolder(View itemView) {
+        public GridItemViewHolder(View itemView) {
             super(itemView);
             mImageView = (ImageView) itemView.findViewById(R.id.grid_item_image);
             mPrimaryTextView = (TextView) itemView.findViewById(R.id.grid_item_primary_text);
