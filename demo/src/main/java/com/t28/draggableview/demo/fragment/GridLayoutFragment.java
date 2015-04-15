@@ -16,7 +16,7 @@ import com.t28.draggableview.demo.data.adapter.BookmarkAdapter;
 import com.t28.draggableview.demo.data.adapter.FragmentAdapter;
 
 public class GridLayoutFragment extends Fragment implements BookmarkAdapter.OnItemLongClickListener {
-    private static final int SPAN_COUNT = 2;
+    private static final int SPAN_COUNT = 3;
 
     private BookmarkAdapter mBookmarkAdapter;
 
