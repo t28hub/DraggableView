@@ -44,10 +44,27 @@ public class MovableArrayAdapter<T, VH extends RecyclerView.ViewHolder> extends 
 
     @Override
     public boolean move(int position1, int position2) {
-        return false;
+        if (!isValidPosition(position1)) {
+            throw new IndexOutOfBoundsException("'position1' is invalid:" + position1);
+        }
+        if (!isValidPosition(position2)) {
+            throw new IndexOutOfBoundsException("'position2' is invalid:" + position2);
+        }
+
+        if (position1 == position2) {
+            return false;
+        }
+
+        mItems.add(position2, mItems.remove(position1));
+        notifyItemMoved(position1, position2);
+        return true;
     }
 
     public T getItem(int position) {
         return mItems.get(position);
+    }
+
+    private boolean isValidPosition(int position) {
+        return position >= 0 && position < mItems.size();
     }
 }
