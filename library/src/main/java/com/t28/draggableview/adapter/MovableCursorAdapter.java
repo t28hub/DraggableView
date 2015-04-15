@@ -67,7 +67,7 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
         }
 
         final int cursorPosition = getCursorPosition(position);
-        if (mCursor.moveToPosition(cursorPosition)) {
+        if (!mCursor.moveToPosition(cursorPosition)) {
             return DraggableView.NO_ID;
         }
         return mCursor.getLong(mRowIdColumn);
