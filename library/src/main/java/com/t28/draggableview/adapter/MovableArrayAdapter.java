@@ -53,6 +53,23 @@ public abstract class MovableArrayAdapter<T, VH extends RecyclerView.ViewHolder>
         return mItems.get(position);
     }
 
+    public void add(T item) {
+        final boolean isAdded = mItems.add(item);
+        if (isAdded) {
+            throw new IllegalStateException("Item does not add:" + item);
+        }
+        notifyItemInserted(mItems.size() - 1);
+    }
+
+    public void addAll(List<T> items) {
+        mItems.clear();
+        if (items == null || items.size() == 0) {
+            return;
+        }
+        mItems.addAll(items);
+        notifyDataSetChanged();
+    }
+
     public void remove(T item) {
         final int position = mItems.indexOf(item);
         if (position < 0) {
