@@ -6,6 +6,7 @@ import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.BaseColumns;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseIntArray;
 
@@ -137,6 +138,11 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
 
     protected boolean isValidPosition(int position) {
         return position >= 0 && position < mCursor.getCount();
+    }
+
+    @NonNull
+    protected Cursor getCursor() {
+        return mCursor;
     }
 
     protected int getCursorPosition(int position) {
