@@ -149,31 +149,31 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
         return mCursor;
     }
 
-    protected int getCursorPosition(int position) {
-        return mPositionMap.get(position, position);
+    protected int getCursorPosition(int layoutPosition) {
+        return mPositionMap.get(layoutPosition, layoutPosition);
     }
 
-    protected void setCursorPosition(int position, int cursorPosition) {
-        mPositionMap.append(position, cursorPosition);
+    protected void setCursorPosition(int layoutPosition, int cursorPosition) {
+        mPositionMap.append(layoutPosition, cursorPosition);
     }
 
-    private void moveLower(int position1, int position2) {
-        for (int position = position1; position < position2; position++) {
+    private void moveLower(int layoutPosition1, int layoutPosition2) {
+        for (int position = layoutPosition1; position < layoutPosition2; position++) {
             swap(position, position + 1);
         }
     }
 
-    private void moveUpper(int position1, int position2) {
-        for (int position = position1; position > position2; position--) {
+    private void moveUpper(int layoutPosition1, int layoutPosition2) {
+        for (int position = layoutPosition1; position > layoutPosition2; position--) {
             swap(position, position - 1);
         }
     }
 
-    private void swap(int position1, int position2) {
-        final int cursorPosition1 = getCursorPosition(position1);
-        final int cursorPosition2 = getCursorPosition(position2);
-        setCursorPosition(position1, cursorPosition2);
-        setCursorPosition(position2, cursorPosition1);
+    private void swap(int layoutPosition1, int layoutPosition2) {
+        final int cursorPosition1 = getCursorPosition(layoutPosition1);
+        final int cursorPosition2 = getCursorPosition(layoutPosition2);
+        setCursorPosition(layoutPosition1, cursorPosition2);
+        setCursorPosition(layoutPosition2, cursorPosition1);
     }
 
     private ContentObserver createContentObserver() {
