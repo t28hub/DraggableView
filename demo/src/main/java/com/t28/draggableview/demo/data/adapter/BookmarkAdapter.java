@@ -18,6 +18,8 @@ import com.t28.draggableview.demo.data.model.Bookmark;
 import com.t28.draggableview.demo.tool.DrawableFactory;
 
 public class BookmarkAdapter extends MovableCursorAdapter<BookmarkAdapter.GridItemViewHolder> {
+    private OnItemLongClickListener mItemLongClickListener;
+
     public BookmarkAdapter() {
         super();
     }
@@ -39,6 +41,10 @@ public class BookmarkAdapter extends MovableCursorAdapter<BookmarkAdapter.GridIt
                 .setThumbnail(readThumbnail(resources));
         final Bookmark bookmark = builder.build();
         holder.bind(bookmark);
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        mItemLongClickListener = listener;
     }
 
     private String readTitle() {
@@ -78,16 +84,27 @@ public class BookmarkAdapter extends MovableCursorAdapter<BookmarkAdapter.GridIt
         void onItemLongClick(int position, View view);
     }
 
-    public class GridItemViewHolder extends RecyclerView.ViewHolder {
+    public class GridItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         private final ImageView mImageView;
         private final TextView mPrimaryTextView;
         private final TextView mSecondaryTextView;
 
         public GridItemViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnLongClickListener(this);
             mImageView = (ImageView) itemView.findViewById(R.id.grid_item_image);
             mPrimaryTextView = (TextView) itemView.findViewById(R.id.grid_item_primary_text);
             mSecondaryTextView = (TextView) itemView.findViewById(R.id.grid_item_secondary_text);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            if (mItemLongClickListener == null) {
+                return false;
+            }
+
+            mItemLongClickListener.onItemLongClick(getAdapterPosition(), itemView);
+            return true;
         }
 
         public void bind(Bookmark bookmark) {
