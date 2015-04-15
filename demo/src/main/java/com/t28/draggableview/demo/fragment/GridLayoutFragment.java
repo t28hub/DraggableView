@@ -15,7 +15,7 @@ import com.t28.draggableview.demo.R;
 import com.t28.draggableview.demo.data.adapter.BookmarkAdapter;
 import com.t28.draggableview.demo.data.adapter.FragmentAdapter;
 
-public class GridLayoutFragment extends Fragment {
+public class GridLayoutFragment extends Fragment implements BookmarkAdapter.OnItemLongClickListener {
     private static final int SPAN_COUNT = 2;
 
     private BookmarkAdapter mBookmarkAdapter;
@@ -35,6 +35,7 @@ public class GridLayoutFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mBookmarkAdapter = new BookmarkAdapter();
+        mBookmarkAdapter.setOnItemLongClickListener(this);
         getDraggableView().setAdapter(mBookmarkAdapter);
     }
 
@@ -54,6 +55,16 @@ public class GridLayoutFragment extends Fragment {
                         Browser.BOOKMARKS_URI, projection, null, null, null);
         mBookmarkAdapter.changeCursor(cursor);
         Log.d("TAG", "cursor:" + cursor.getCount());
+    }
+
+    @Override
+    public void onItemLongClick(int position, View view) {
+        final DraggableView draggableView = getDraggableView();
+        if (draggableView.isDragging()) {
+            return;
+        }
+
+        draggableView.startDrag(view, new DraggableView.ShadowBuilder(view));
     }
 
     private DraggableView getDraggableView() {
