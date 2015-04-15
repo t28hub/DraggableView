@@ -2,7 +2,6 @@ package com.t28.draggableview.demo.data.adapter;
 
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.database.MatrixCursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Browser;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.t28.draggableview.DraggableView;
 import com.t28.draggableview.adapter.MovableCursorAdapter;
 import com.t28.draggableview.demo.R;
 import com.t28.draggableview.demo.data.model.Bookmark;
@@ -44,18 +42,21 @@ public class BookmarkAdapter extends MovableCursorAdapter<BookmarkAdapter.GridVi
     }
 
     private String readTitle() {
-        final int columnIndex = mCursor.getColumnIndexOrThrow(Browser.BookmarkColumns.TITLE);
-        return mCursor.getString(columnIndex);
+        final Cursor cursor = getCursor();
+        final int columnIndex = cursor.getColumnIndexOrThrow(Browser.BookmarkColumns.TITLE);
+        return cursor.getString(columnIndex);
     }
 
     private Uri readUrl() {
-        final int columnIndex = mCursor.getColumnIndexOrThrow(Browser.BookmarkColumns.URL);
-        return Uri.parse(mCursor.getString(columnIndex));
+        final Cursor cursor = getCursor();
+        final int columnIndex = cursor.getColumnIndexOrThrow(Browser.BookmarkColumns.URL);
+        return Uri.parse(cursor.getString(columnIndex));
     }
 
     private Drawable readFavicon(Resources resources) {
-        final int columnIndex = mCursor.getColumnIndexOrThrow(Browser.BookmarkColumns.FAVICON);
-        final byte[] data = mCursor.getBlob(columnIndex);
+        final Cursor cursor = getCursor();
+        final int columnIndex = cursor.getColumnIndexOrThrow(Browser.BookmarkColumns.FAVICON);
+        final byte[] data = cursor.getBlob(columnIndex);
         if (data == null || data.length == 0) {
             return null;
         }
@@ -63,8 +64,9 @@ public class BookmarkAdapter extends MovableCursorAdapter<BookmarkAdapter.GridVi
     }
 
     private Drawable readThumbnail(Resources resources) {
-        final int columnIndex = mCursor.getColumnIndexOrThrow("thumbnail");
-        final byte[] data = mCursor.getBlob(columnIndex);
+        final Cursor cursor = getCursor();
+        final int columnIndex = cursor.getColumnIndexOrThrow("thumbnail");
+        final byte[] data = cursor.getBlob(columnIndex);
         if (data == null || data.length == 0) {
             return null;
         }
