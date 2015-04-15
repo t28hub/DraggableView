@@ -38,6 +38,7 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
         } else {
             mCursor = cursor;
         }
+        mIsDataValid = true;
         mRowIdColumn = mCursor.getInt(mCursor.getColumnIndex(BaseColumns._ID));
         setHasStableIds(true);
     }
@@ -123,6 +124,7 @@ public abstract class MovableCursorAdapter<VH extends RecyclerView.ViewHolder> e
         newCursor.registerContentObserver(mContentObserver);
         newCursor.registerDataSetObserver(mDataSetObserver);
 
+        mIsDataValid = true;
         mRowIdColumn = newCursor.getColumnIndexOrThrow(BaseColumns._ID);
         mCursor = newCursor;
         mPositionMap.clear();
